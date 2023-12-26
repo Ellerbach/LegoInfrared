@@ -7,11 +7,13 @@ Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "nanoFramework.Lego.Infrared
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "LegoInfraredCore", "LegoInfraredCore\LegoInfraredCore.shproj", "{DE39AECC-AE50-445F-B03C-9D2AE22CC893}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lego.Infrared", "Lego.Infrared\Lego.Infrared.csproj", "{8880CD04-B889-45DF-AE2D-2814E2AE9E77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lego.Infrared", "Lego.Infrared\Lego.Infrared.csproj", "{8880CD04-B889-45DF-AE2D-2814E2AE9E77}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{3599FB58-1779-45E3-ABBE-9998BCD325DA}"
 EndProject
 Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "nanoFramework.sample", "Samples\nanoFramework\nanoFramework.sample\nanoFramework.sample.nfproj", "{B24EA349-7AED-4454-A3BC-55F9E0642754}"
+EndProject
+Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "nanoFramework.WebServerAndSerial", "Samples\nanoFramework\nanoFramework.WebServerAndSerial\nanoFramework.WebServerAndSerial.nfproj", "{774E8480-47FE-415E-A824-A23A22E8A77D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +37,19 @@ Global
 		{B24EA349-7AED-4454-A3BC-55F9E0642754}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B24EA349-7AED-4454-A3BC-55F9E0642754}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B24EA349-7AED-4454-A3BC-55F9E0642754}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{774E8480-47FE-415E-A824-A23A22E8A77D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{774E8480-47FE-415E-A824-A23A22E8A77D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{774E8480-47FE-415E-A824-A23A22E8A77D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{774E8480-47FE-415E-A824-A23A22E8A77D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{774E8480-47FE-415E-A824-A23A22E8A77D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{774E8480-47FE-415E-A824-A23A22E8A77D}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B24EA349-7AED-4454-A3BC-55F9E0642754} = {3599FB58-1779-45E3-ABBE-9998BCD325DA}
+		{774E8480-47FE-415E-A824-A23A22E8A77D} = {3599FB58-1779-45E3-ABBE-9998BCD325DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB0C100F-30BB-45FA-935B-7670BE408EAE}

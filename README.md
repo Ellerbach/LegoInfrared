@@ -19,11 +19,11 @@ For this, you'll need to build the equivalent electronic:
 ![Electronic for Infrared](./Assets/infrared.jpg)
 
 * The MOSI pin is 19 and Enabled is pin number 24 on a Raspberry PI. Those are the 2 pins you need for the infrared part.
-* On an ESP32, this is configurable, install the nanoFrameork.Hardware.Esp32 nuget and use the `Configuration.SetPinFunction()`
+* On an ESP32, this is configurable, install the nanoFramework.Hardware.Esp32 nuget and use the `Configuration.SetPinFunction` function.
 
 ## Usage
 
-You need first to create an instance of the LegoInfrared class:
+You need first to create an instance of the `LegoInfrared` class:
 
 ```csharp
 LegoInfrared _infrared;
@@ -35,7 +35,7 @@ Configuration.SetPinFunction(13, DeviceFunction.SPI1_MOSI);
 // We will use chip select 17
 _infrared = new LegoInfrared(1, 17);
 
-_infrared.ComboMode(Speed.BlueForward, Speed.BlueForward, Channel.Channel1);
+_infrared.ComboMode(Speed.BlueForward, Speed.RedForward, Channel.Channel1);
 
 _infrared.SingleOutputContinuousAll(
     new Function[] { Function.Set, Function.Clear, Function.Toggle, Function.NoChange },
@@ -43,3 +43,5 @@ _infrared.SingleOutputContinuousAll(
 ```
 
 And as shown in the example, you can then call any of the public function. You still need to understand what each function is doing.
+
+Note that if you don't want to use an enable pin, you can set the chip select pin to -1. This will not use any chip select.

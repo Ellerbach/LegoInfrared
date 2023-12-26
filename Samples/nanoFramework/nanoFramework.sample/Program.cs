@@ -22,7 +22,7 @@ namespace nanoFramework.sample
             // We will use chip select 17
             _infrared = new LegoInfrared(1, 17);
 
-            _infrared.ComboMode(Speed.BlueForward, Speed.BlueForward, Channel.Channel1);
+            _infrared.ComboMode(Speed.BlueForward, Speed.RedForward, Channel.Channel1);
 
             _infrared.SingleOutputContinuousAll(
                 new Function[] { Function.Set, Function.Clear, Function.Toggle, Function.NoChange },
