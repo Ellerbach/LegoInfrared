@@ -6,6 +6,6 @@ using System;
 namespace Lego.Infrared
 {
     public partial class LegoInfrared : IDisposable
-    {              
+    {
     }
 }
