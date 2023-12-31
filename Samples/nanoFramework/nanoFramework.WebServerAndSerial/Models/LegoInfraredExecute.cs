@@ -1,4 +1,7 @@
-﻿using Lego.Infrared;
+﻿// Licensed to the Laurent Ellerbach under one or more agreements.
+// Laurent Ellerbach licenses this file to you under the MIT license.
+
+using Lego.Infrared;
 using nanoFramework.WebServer;
 using System;
 
@@ -19,6 +22,11 @@ namespace nanoFramework.WebServerAndSerial.Models
 
         static public bool SingleTimeout(string strDecrypt)
         {
+            if (Application.LegoInfrared == null)
+            {
+                return false;
+            }
+
             // decode params
             var Params = WebServer.WebServer.DecodeParam(strDecrypt);
             //check if Params contains anything and is valid
@@ -68,6 +76,11 @@ namespace nanoFramework.WebServerAndSerial.Models
 
         static public bool ContinuousAll(string strDecrypt)
         {
+            if (Application.LegoInfrared == null)
+            {
+                return false;
+            }
+
             // decode params
             var Params = WebServer.WebServer.DecodeParam(strDecrypt);
             //check if Params contains anything and is valid
@@ -112,6 +125,11 @@ namespace nanoFramework.WebServerAndSerial.Models
 
         static public bool Continuous(string strDecrypt)
         {
+            if (Application.LegoInfrared == null)
+            {
+                return false;
+            }
+
             // decode params
             var Params = WebServer.WebServer.DecodeParam(strDecrypt);
             //check if Params contains anything and is valid
@@ -161,6 +179,11 @@ namespace nanoFramework.WebServerAndSerial.Models
 
         static public bool ComboPwmAll(string strDecrypt)
         {
+            if (Application.LegoInfrared == null)
+            {
+                return false;
+            }
+
             // decode params
             var Params = WebServer.WebServer.DecodeParam(strDecrypt);
             //check if Params contains anything and is valid
@@ -205,6 +228,11 @@ namespace nanoFramework.WebServerAndSerial.Models
 
         static public bool ComboPwm(string strDecrypt)
         {
+            if (Application.LegoInfrared == null)
+            {
+                return false;
+            }
+
             // decode params
             var Params = WebServer.WebServer.DecodeParam(strDecrypt);
             //check if Params contains anything and is valid
@@ -255,6 +283,11 @@ namespace nanoFramework.WebServerAndSerial.Models
 
         static public bool SingleCst(string strDecrypt)
         {
+            if (Application.LegoInfrared == null)
+            {
+                return false;
+            }
+
             // decode params
             var Params = WebServer.WebServer.DecodeParam(strDecrypt);
             //check if Params contains anything and is valid
@@ -304,6 +337,11 @@ namespace nanoFramework.WebServerAndSerial.Models
 
         static public bool SinglePwmAll(string strDecrypt)
         {
+            if (Application.LegoInfrared == null)
+            {
+                return false;
+            }
+
             // decode params
             var Params = WebServer.WebServer.DecodeParam(strDecrypt);
             //check if Params contains anything and is valid
@@ -348,6 +386,11 @@ namespace nanoFramework.WebServerAndSerial.Models
 
         static public bool SinglePwm(string strDecrypt)
         {
+            if (Application.LegoInfrared == null)
+            {
+                return false;
+            }
+
             // decode params
             var Params = WebServer.WebServer.DecodeParam(strDecrypt);
             //check if Params contains anything and is valid
@@ -398,6 +441,11 @@ namespace nanoFramework.WebServerAndSerial.Models
 
         static public bool ComboAll(string strDecrypt)
         {
+            if (Application.LegoInfrared == null)
+            {
+                return false;
+            }
+
             // decode params
             var Params = WebServer.WebServer.DecodeParam(strDecrypt);
             //check if Params contains anything and is valid
@@ -450,6 +498,11 @@ namespace nanoFramework.WebServerAndSerial.Models
 
         static public bool Combo(string strDecrypt)
         {
+            if (Application.LegoInfrared == null)
+            {
+                return false;
+            }
+            
             // decode params
             var Params = WebServer.WebServer.DecodeParam(strDecrypt);
             //check if Params contains anything and is valid

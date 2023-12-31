@@ -548,18 +548,6 @@ namespace nanoFramework.WebServerAndSerial
             return success;
         }
 
-        /// <summary>
-        /// Get current IP address. Only valid if successfully provisioned and connected
-        /// </summary>
-        /// <returns>IP address string</returns>
-        public static string GetCurrentIPAddress()
-        {
-            NetworkInterface ni = NetworkInterface.GetAllNetworkInterfaces()[0];
-
-            // get first NI ( Wifi on ESP32 )
-            return ni.IPv4Address.ToString();
-        }
-
         private void FireOnIdentify()
         {
             if (OnIdentify != null)

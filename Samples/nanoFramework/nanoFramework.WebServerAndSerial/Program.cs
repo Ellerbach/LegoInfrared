@@ -1,23 +1,38 @@
+// Licensed to the Laurent Ellerbach under one or more agreements.
+// Laurent Ellerbach licenses this file to you under the MIT license.
+
+#if NO_BLUETOOTH
+using Iot.Device.DhcpServer;
+using nanoFramework.WebServerAndSerial.WirelessSetup;
+#endif
 using Lego.Infrared;
 using nanoFramework.Hardware.Esp32;
 using nanoFramework.Networking;
+using nanoFramework.Runtime.Native;
 using nanoFramework.WebServer;
 using nanoFramework.WebServerAndSerial.Controllers;
 using nanoFramework.WebServerAndSerial.Models;
 using System;
+using System.Diagnostics;
 using System.Net;
+using System.Net.NetworkInformation;
+using System.Text;
 using System.Threading;
+using System.Web;
 
 namespace nanoFramework.WebServerAndSerial
 {
     public class Application
     {
+#if !NO_BLUETOOTH
         private static Improv _imp;
+#endif
         private static AppConfiguration _appConfiguration;
         private static LegoInfrared _legoInfrared;
         public static AppConfiguration AppConfiguration { get => _appConfiguration; }
         public static LegoInfrared LegoInfrared { get => _legoInfrared; }
         private static WebServer.WebServer _server;
+        private static bool _wifiApMode = false;
 
         public static void Main()
         {
@@ -32,13 +47,31 @@ namespace nanoFramework.WebServerAndSerial
 
             _appConfiguration = AppConfiguration ?? new AppConfiguration();
 
+#if NO_BLUETOOTH
+            if (Wireless80211.IsEnabled())
+            {
+                Console.WriteLine("Wireless client activated");
+                if (!WifiNetworkHelper.Reconnect(true, token: new CancellationTokenSource(10_000).Token))
+                {
+                    SetWifiAp();
+                }
+            }
+            else
+            {
+                SetWifiAp();
+            }
+#else
             if (!WifiNetworkHelper.Reconnect(true, token: new CancellationTokenSource(5_000).Token))
             {
                 SetImprove();
             }
+#endif
 
-            Console.WriteLine($"Connected with wifi credentials. IP Address: {Improv.GetCurrentIPAddress()}");
-
+#if NO_BLUETOOTH
+            Console.WriteLine($"Connected with wifi credentials. IP Address: {(_wifiApMode ? WirelessAP.GetIP() : GetCurrentIPAddress())}");
+#else
+            Console.WriteLine($"Connected with wifi credentials. IP Address: {GetCurrentIPAddress()}");
+#endif
             _server = new WebServer.WebServer(80, HttpProtocol.Http, new Type[] { typeof(ControllerApi), typeof(ControllerConfiguration) });
             // Add a handler for commands that are received by the server.
             _server.CommandReceived += ServerCommandReceived;
@@ -75,7 +108,7 @@ namespace nanoFramework.WebServerAndSerial
                 WebServer.WebServer.OutPutStream(e.Context.Response, ResourceWeb.GetString(ResourceWeb.StringResources.style));
                 return;
             }
-            else if(e.Context.Request.RawUrl.StartsWith("/favicon.ico"))
+            else if (e.Context.Request.RawUrl.StartsWith("/favicon.ico"))
             {
                 var ico = ResourceWeb.GetBytes(ResourceWeb.BinaryResources.favicon);
                 e.Context.Response.ContentType = "image/ico";
@@ -84,12 +117,84 @@ namespace nanoFramework.WebServerAndSerial
                 return;
             }
 
-            string toOutput = "<html><head>" +
-    $"<title>Hi from nanoFramework Server</title></head><body>Your Lego Infrared configuraiton is: {(LegoInfrared == null ? "Invalid" : "Valid")}<br/>";
-            toOutput += "To configure your device please go to <a href=\"config\">configuration</a><br/>";
-            toOutput += "Reset your wifi by cliking <a href=\"resetwifi\">here</a>.";
-            toOutput += "</body></html>";
-            WebServer.WebServer.OutPutStream(e.Context.Response, toOutput);
+#if NO_BLUETOOTH
+            if (_wifiApMode)
+            {
+                if (e.Context.Request.HttpMethod == "GET")
+                {
+                    string route = $"<!DOCTYPE html><html><body>" +
+                        "<h1>NanoFramework</h1>" +
+                        "<form method='POST'  action='/'>" +
+                        "<fieldset><legend>Wireless configuration</legend>" +
+                        "Ssid:</br><input type='input' name='ssid' value='' ></br>" +
+                        "Password:</br><input type='password' name='password' value='' >" +
+                        "<br><br>" +
+                        "<input type='submit' value='Save'>" +
+                        "</fieldset>" +
+                        "</form></body></html>";
+                    WebServer.WebServer.OutPutStream(e.Context.Response, route);
+                }
+                else
+                {
+                    byte[] buff = new byte[e.Context.Request.ContentLength64];
+                    e.Context.Request.InputStream.Read(buff, 0, buff.Length);
+                    string paramString = Encoding.UTF8.GetString(buff, 0, buff.Length);
+
+                    // We're adding back the question mark as it's not present when posting
+                    var parameters = WebServer.WebServer.DecodeParam($"{WebServer.WebServer.ParamStart}{paramString}");
+                    string ssid = string.Empty;
+                    string password = string.Empty;
+                    foreach (UrlParameter param in parameters)
+                    {
+                        if (param.Name == "ssid")
+                        {
+                            ssid = HttpUtility.UrlDecode(param.Value);
+                        }
+                        else if (param.Name == "password")
+                        {
+                            password = HttpUtility.UrlDecode(param.Value);
+                        }
+                    }
+
+                    Console.WriteLine($"SSID: {ssid}, password: {password}");
+
+                    // Enable the Wireless station interface
+                    bool res = Wireless80211.Configure(ssid, password);
+
+                    var route = $"<!DOCTYPE html><html><body>" +
+                        "<h1>NanoFramework</h1>" +
+                        "<p>New settings saved.</p><p>Rebooting device to put into normal mode.</p>" +
+                        "<p>Please allow up to 10 seconds to reconnect to the IP address.</p>";
+                    if (res)
+                    {
+                        route += $"<p>IP Address shoud be <a href='http://{GetCurrentIPAddress()}'>http://{GetCurrentIPAddress()}</a>.</p>";
+                    }
+
+                    route += $"<p>If not configured properly, connect again to the SSID {WirelessAP.SoftApSsid} and then to <a href='http://{WirelessAP.SoftApIP}'>http://{WirelessAP.SoftApIP}</a></p>" +
+                    "</body></html>";
+
+                    WebServer.WebServer.OutPutStream(e.Context.Response, route);
+
+                    // Needed to make sure all is getting out
+                    Thread.Sleep(200);
+
+                    // Disable the Soft AP
+                    WirelessAP.Disable();
+                    Thread.Sleep(200);
+                    Power.RebootDevice();
+                }
+            }
+            else
+#endif
+            {
+                string toOutput = "<html><head>" +
+                    $"<title>Lego Infrared</title></head><body>Your Lego Infrared configuraiton is: {(LegoInfrared == null ? "Invalid" : "Valid")}<br/>";
+                toOutput += "<a href='test'>Access</a> the Lego Infrared test page.<br>";
+                toOutput += "To configure your device please go to <a href=\"config\">configuration</a><br/>";
+                toOutput += "Reset your wifi by cliking <a href=\"resetwifi\">here</a>.";
+                toOutput += "</body></html>";
+                WebServer.WebServer.OutPutStream(e.Context.Response, toOutput);
+            }
         }
 
         private static void SetLegoInfrared()
@@ -127,6 +232,46 @@ namespace nanoFramework.WebServerAndSerial
             }
         }
 
+        /// <summary>
+        /// Get current IP address. Only valid if successfully provisioned and connected
+        /// </summary>
+        /// <returns>IP address string</returns>
+        public static string GetCurrentIPAddress()
+        {
+            NetworkInterface ni = NetworkInterface.GetAllNetworkInterfaces()[0];
+
+            // get first NI ( Wifi on ESP32 )
+            return ni.IPv4Address.ToString();
+        }
+
+#if NO_BLUETOOTH
+        public static void SetWifiAp()
+        {
+            Wireless80211.Disable();
+            if (WirelessAP.Setup() == false)
+            {
+                // Reboot device to Activate Access Point on restart
+                Console.WriteLine($"Setup Soft AP, Rebooting device");
+                Power.RebootDevice();
+            }
+
+            _wifiApMode = true;
+            var dhcpserver = new DhcpServer
+            {
+                CaptivePortalUrl = $"http://{WirelessAP.SoftApIP}"
+            };
+            var dhcpInitResult = dhcpserver.Start(IPAddress.Parse(WirelessAP.SoftApIP), new IPAddress(new byte[] { 255, 255, 255, 0 }));
+            if (!dhcpInitResult)
+            {
+                Console.WriteLine($"Error initializing DHCP server.");
+                // This happens after a very freshly flashed device
+                Power.RebootDevice();
+            }
+
+            Console.WriteLine($"Running Soft AP, waiting for client to connect");
+            Console.WriteLine($"Soft AP IP address :{WirelessAP.GetIP()}");
+        }
+#else
         public static void SetImprove()
         {
             // Construct Improv class
@@ -186,7 +331,7 @@ namespace nanoFramework.WebServerAndSerial
         private static void SetProvisioningURL()
         {
             // All good, wifi connected, set up URL for access
-            string ipAddress = Improv.GetCurrentIPAddress();
+            string ipAddress = GetCurrentIPAddress();
             Console.WriteLine($"IP Address: {ipAddress}");
             _imp.RedirectUrl = "http://" + ipAddress;
         }
@@ -216,5 +361,6 @@ namespace nanoFramework.WebServerAndSerial
                 _imp.ErrorState = Improv.ImprovError.unableConnect;
             }
         }
+#endif
     }
 }

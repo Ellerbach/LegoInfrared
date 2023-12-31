@@ -1,4 +1,7 @@
-﻿using nanoFramework.WebServer;
+﻿// Licensed to the Laurent Ellerbach under one or more agreements.
+// Laurent Ellerbach licenses this file to you under the MIT license.
+
+using nanoFramework.WebServer;
 using nanoFramework.WebServerAndSerial.Models;
 using System;
 using System.Net;
@@ -33,7 +36,7 @@ namespace nanoFramework.WebServerAndSerial.Controllers
             strResp = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
             strResp += "<html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title>Test Lego Infrared modes</title><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"></head><body>";
             // first form is for Combo mode
-            strResp += "<form method=\"get\" action=\"" + PageCombo + "\" target=\"_blank\"><p>Combo Mode<br />Speed Red<select id=\"RedSpeed\" name=\"rd\">";
+            strResp += "<fieldset><form method=\"get\" action=\"" + PageCombo + "\" target=\"_blank\"><legend>Combo Mode</legend><br />Speed Red<select id=\"RedSpeed\" name=\"rd\">";
             strResp += "<option label='RED_FLT'>0</option>" +
                 "<option label='RED_FWD'>1</option>" +
                 "<option label='RED_REV'>2</option>" +
@@ -48,12 +51,12 @@ namespace nanoFramework.WebServerAndSerial.Controllers
                 "<option label='CH2'>1</option>" +
                 "<option label='CH3'>2</option>" +
                 "<option label='CH4'>3</option>";
-            strResp += "</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id=\"Submit1\" type=\"submit\" value=\"Send\" /></p>";
-            strResp += "</form>";
+            strResp += "</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id=\"Submit1\" type=\"submit\" value=\"Send\" />";
+            strResp += "</form></fieldset>";
             OutPutStream(e.Context.Response, strResp);
             strResp = string.Empty;
             //second form is singlepwm
-            strResp += "<form method=\"get\" action=\"" + PageSinglePwm + "\" target=\"_blank\"><p>SinglePWM Mode<br />PWM<select id=\"PWM\" name=\"pw\">";
+            strResp += "<fieldset><form method=\"get\" action=\"" + PageSinglePwm + "\" target=\"_blank\"><legend>SinglePWM Mode</legend><br />PWM<select id=\"PWM\" name=\"pw\">";
             strResp += "<option label='FLT'>0</option>";
             strResp += "<option label='FWD1'>1</option>";
             strResp += "<option label='FWD2'>2</option>";
@@ -80,10 +83,10 @@ namespace nanoFramework.WebServerAndSerial.Controllers
                 "<option label='CH2'>1</option>" +
                 "<option label='CH3'>2</option>" +
                 "<option label='CH4'>3</option>";
-            strResp += "</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id=\"Submit2\" type=\"submit\" value=\"Send\" /></p>";
-            strResp += "</form>";
+            strResp += "</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id=\"Submit2\" type=\"submit\" value=\"Send\" />";
+            strResp += "</form></fieldset>";
             //3rd is continuous
-            strResp += "<form method=\"get\" action=\"" + PageContinuous + "\" target=\"_blank\"><p>SingleCountinuous Mode";
+            strResp += "<fieldset><form method=\"get\" action=\"" + PageContinuous + "\" target=\"_blank\"><legend>SingleCountinuous Mode</legend>";
             strResp += "<br />Function<select id=\"Function\" name=\"fc\">";
             strResp += "<option label='NO_CHANGE'>0</option>" +
                 "<option label='CLEAR'>1</option>" +
@@ -101,10 +104,10 @@ namespace nanoFramework.WebServerAndSerial.Controllers
                 "<option label='CH2'>1</option>" +
                 "<option label='CH3'>2</option>" +
                 "<option label='CH4'>3</option>";
-            strResp += "</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id=\"Submit3\" type=\"submit\" value=\"Send\" /></p>";
-            strResp += "</form>";
+            strResp += "</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id=\"Submit3\" type=\"submit\" value=\"Send\" />";
+            strResp += "</form></fieldset>";
             //4 ComboPWM
-            strResp += "<form method=\"get\" action=\"combopwm\" target=\"_blank\"><p>ComboPWM Mode<br />PWM Red<select id=\"PWM1\" name=\"p1\">";
+            strResp += "<form method=\"get\" action=\"combopwm\" target=\"_blank\"><legend>ComboPWM Mode</legend><br />PWM Red<select id=\"PWM1\" name=\"p1\">";
             strResp += "<option label='FLT'>0</option>";
             strResp += "<option label='FWD1'>1</option>";
             strResp += "<option label='FWD2'>2</option>";
@@ -139,11 +142,10 @@ namespace nanoFramework.WebServerAndSerial.Controllers
             strResp += "<option label='REV2'>14</option>";
             strResp += "<option label='REV1'>15</option>";
             strResp += "</select> Channel<select id=\"Channel\" name=\"ch\"><option label='CH1'>0</option><option label='CH2'>1</option><option label='CH3'>2</option><option label='CH4'>3</option>";
-            strResp += "</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id=\"Submit4\" type=\"submit\" value=\"Send\" /></p>";
-            strResp += "</form>";
+            strResp += "</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id=\"Submit4\" type=\"submit\" value=\"Send\" />";
+            strResp += "</form></fieldset>";
             //4 ComboPWMAll
-            // TODO TODO TODO TODO
-            strResp += "<form method=\"get\" action=\"combopwmall\" target=\"_blank\"><p>ComboPWMAll Mode<br />";
+            strResp += "<form method=\"get\" action=\"combopwmall\" target=\"_blank\"><legend>ComboPWMAll Mode</legend><br />";
             for (int i = 0; i < 4; i++)
             {
                 strResp += "PWM Red<select id=\"PWM1\" name=\"pwr" + i + "\">";
@@ -183,12 +185,12 @@ namespace nanoFramework.WebServerAndSerial.Controllers
                 //strResp += "</select> Channel<select id=\"Channel\" name=\"ch\"><option label='CH1'>0</option><option label='CH2'>1</option><option label='CH3'>2</option><option label='CH4'>3</option>";
                 strResp += "</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
             }
-            strResp = "<input id=\"Submit4\" type=\"submit\" value=\"Send\" /></p>";
-            strResp += "</form>";
+            strResp = "<input id=\"Submit4\" type=\"submit\" value=\"Send\" />";
+            strResp += "</form></fieldset>";
             OutPutStream(e.Context.Response, strResp);
             strResp = string.Empty;
             //5 Single CST
-            strResp += "<form method=\"get\" action=\"" + PageSingleCst + "\" target=\"_blank\"><p>SingleCST Mode<br />CST<select id=\"CST\" name=\"pw\">";
+            strResp += "<fieldset><form method=\"get\" action=\"" + PageSingleCst + "\" target=\"_blank\"><legend>SingleCST Mode</legend><br />CST<select id=\"CST\" name=\"pw\">";
             strResp += "<option label='CLEARC1_CLEARC2'>0</option>";
             strResp += "<option label='SETC1_SETC2'>1</option>";
             strResp += "<option label='CLEARC1_SETC2'>2</option>";
@@ -206,10 +208,10 @@ namespace nanoFramework.WebServerAndSerial.Controllers
                 "<option label='CH2'>1</option>" +
                 "<option label='CH3'>2</option>" +
                 "<option label='CH4'>3</option>";
-            strResp += "</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id=\"Submit5\" type=\"submit\" value=\"Send\" /></p>";
-            strResp += "</form>";
+            strResp += "</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id=\"Submit5\" type=\"submit\" value=\"Send\" />";
+            strResp += "</form></fieldset>";
             //6 Single Timeout
-            strResp += "<form method=\"get\" action=\"" + PageTimeout + "\" target=\"_blank\"><p>SingleTimeout Mode";
+            strResp += "<fieldset><form method=\"get\" action=\"" + PageTimeout + "\" target=\"_blank\"><legend>SingleTimeout Mode</legend>";
             strResp += "<br />Function<select id=\"Function\" name=\"fc\">";
             strResp += "<option label='NO_CHANGE'>0</option>" +
                 "<option label='CLEAR'>1</option>" +
@@ -225,12 +227,12 @@ namespace nanoFramework.WebServerAndSerial.Controllers
                 "<option label='CH2'>1</option>" +
                 "<option label='CH3'>2</option>" +
                 "<option label='CH4'>3</option>";
-            strResp += "</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id=\"Submit6\" type=\"submit\" value=\"Send\" /></p>";
-            strResp += "</form>";
+            strResp += "</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id=\"Submit6\" type=\"submit\" value=\"Send\" />";
+            strResp += "</form></fieldset>";
             OutPutStream(e.Context.Response, strResp);
             strResp = string.Empty;
             // 7 form is for Combo mode all
-            strResp += "<form method=\"get\" action=\"" + PageComboAll + "\" target=\"_blank\"><p>Combo Mode All";
+            strResp += "<fieldset><form method=\"get\" action=\"" + PageComboAll + "\" target=\"_blank\"><legend>Combo Mode All</legend>";
             for (int i = 0; i < 4; i++)
             {
                 strResp += "<br />Speed Red channel " + (i + 1) + "<select id=\"RedSpeed\" name=\"rd" + i + "\">";
@@ -248,9 +250,9 @@ namespace nanoFramework.WebServerAndSerial.Controllers
                 strResp = string.Empty;
             }
             strResp += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id=\"Submit7\" type=\"submit\" value=\"Send\" /></p>";
-            strResp += "</form>";
+            strResp += "</form></fieldset>";
             //8 is continuous
-            strResp += "<form method=\"get\" action=\"" + PageContinuousAll + "\" target=\"_blank\"><p>SingleCountinuous Mode All";
+            strResp += "<fieldset><form method=\"get\" action=\"" + PageContinuousAll + "\" target=\"_blank\"><legend>SingleCountinuous Mode All</legend>";
             for (int i = 0; i < 4; i++)
             {
                 strResp += "<br />Function channel " + (i + 1) + "<select id=\"Function\" name=\"fc" + i + "\">";
@@ -266,10 +268,10 @@ namespace nanoFramework.WebServerAndSerial.Controllers
                 OutPutStream(e.Context.Response, strResp);
                 strResp = string.Empty;
             }
-            strResp += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id=\"Submit8\" type=\"submit\" value=\"Send\" /></p>";
-            strResp += "</form>";
+            strResp += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id=\"Submit8\" type=\"submit\" value=\"Send\" />";
+            strResp += "</form></fieldset>";
             // 9 form is singlepwm
-            strResp += "<form method=\"get\" action=\"" + PageSinglePwmAll + "\" target=\"_blank\"><p>SinglePWM Mode All";
+            strResp += "<fieldset><form method=\"get\" action=\"" + PageSinglePwmAll + "\" target=\"_blank\"><legend>SinglePWM Mode All<legend>";
             for (int a = 0; a < 4; a++)
             {
                 strResp += "<br />PWM channel " + (a + 1) + "<select id=\"PWM\" name=\"pw" + a + "\">";
@@ -295,8 +297,8 @@ namespace nanoFramework.WebServerAndSerial.Controllers
             }
             OutPutStream(e.Context.Response, strResp);
             strResp = string.Empty;
-            strResp += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id=\"Submit9\" type=\"submit\" value=\"Send\" /></p>";
-            strResp += "</form>";
+            strResp += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id=\"Submit9\" type=\"submit\" value=\"Send\" />";
+            strResp += "</form></fieldset>";
 
             strResp += "</body></html>";
             OutPutStream(e.Context.Response, strResp);
