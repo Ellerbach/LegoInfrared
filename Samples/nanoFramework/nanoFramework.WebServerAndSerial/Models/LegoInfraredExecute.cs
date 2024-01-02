@@ -20,9 +20,11 @@ namespace nanoFramework.WebServerAndSerial.Models
         private const string ParamComboPWMB = "pwb";
         private const string ParamContinuousFct = "fc";
 
-        static public bool SingleTimeout(string strDecrypt)
+        public static LegoInfrared LegoInfrared { get; set; }
+
+        public static bool SingleTimeout(string strDecrypt)
         {
-            if (Application.LegoInfrared == null)
+            if (LegoInfrared == null)
             {
                 return false;
             }
@@ -71,12 +73,12 @@ namespace nanoFramework.WebServerAndSerial.Models
                 }
             }
 
-            return Application.LegoInfrared.SingleOutputTimeout((Function)mFunction, (Output)mOutPut, (Channel)mChannel);
+            return LegoInfrared.SingleOutputTimeout((Function)mFunction, (Output)mOutPut, (Channel)mChannel);
         }
 
-        static public bool ContinuousAll(string strDecrypt)
+        public static bool ContinuousAll(string strDecrypt)
         {
-            if (Application.LegoInfrared == null)
+            if (LegoInfrared == null)
             {
                 return false;
             }
@@ -120,12 +122,12 @@ namespace nanoFramework.WebServerAndSerial.Models
                 }
             }
 
-            return Application.LegoInfrared.SingleOutputContinuousAll(mFunction, mOutPut);
+            return LegoInfrared.SingleOutputContinuousAll(mFunction, mOutPut);
         }
 
-        static public bool Continuous(string strDecrypt)
+        public static bool Continuous(string strDecrypt)
         {
-            if (Application.LegoInfrared == null)
+            if (LegoInfrared == null)
             {
                 return false;
             }
@@ -174,12 +176,12 @@ namespace nanoFramework.WebServerAndSerial.Models
                 }
             }
 
-            return Application.LegoInfrared.SingleOutputContinuous((Function)mFunction, (Output)mOutPut, (Channel)mChannel);
+            return LegoInfrared.SingleOutputContinuous((Function)mFunction, (Output)mOutPut, (Channel)mChannel);
         }
 
-        static public bool ComboPwmAll(string strDecrypt)
+        public static bool ComboPwmAll(string strDecrypt)
         {
-            if (Application.LegoInfrared == null)
+            if (LegoInfrared == null)
             {
                 return false;
             }
@@ -223,12 +225,12 @@ namespace nanoFramework.WebServerAndSerial.Models
                 }
             }
 
-            return Application.LegoInfrared.ComboPwmAll(mPWMR, mPWMB);
+            return LegoInfrared.ComboPwmAll(mPWMR, mPWMB);
         }
 
-        static public bool ComboPwm(string strDecrypt)
+        public static bool ComboPwm(string strDecrypt)
         {
-            if (Application.LegoInfrared == null)
+            if (LegoInfrared == null)
             {
                 return false;
             }
@@ -277,13 +279,13 @@ namespace nanoFramework.WebServerAndSerial.Models
                 }
             }
 
-            return Application.LegoInfrared.ComboPwm((PwmSpeed)mPWM1, (PwmSpeed)mPWM2, (Channel)mChannel);
+            return LegoInfrared.ComboPwm((PwmSpeed)mPWM1, (PwmSpeed)mPWM2, (Channel)mChannel);
         }
 
 
-        static public bool SingleCst(string strDecrypt)
+        public static bool SingleCst(string strDecrypt)
         {
-            if (Application.LegoInfrared == null)
+            if (LegoInfrared == null)
             {
                 return false;
             }
@@ -332,12 +334,12 @@ namespace nanoFramework.WebServerAndSerial.Models
                 }
             }
 
-            return Application.LegoInfrared.SingleOutputClearSetToggle((ClearSetToggle)mPWM, (PwmOutput)mOutPut, (Channel)mChannel);
+            return LegoInfrared.SingleOutputClearSetToggle((ClearSetToggle)mPWM, (PwmOutput)mOutPut, (Channel)mChannel);
         }
 
-        static public bool SinglePwmAll(string strDecrypt)
+        public static bool SinglePwmAll(string strDecrypt)
         {
-            if (Application.LegoInfrared == null)
+            if (LegoInfrared == null)
             {
                 return false;
             }
@@ -381,12 +383,12 @@ namespace nanoFramework.WebServerAndSerial.Models
                 }
             }
 
-            return Application.LegoInfrared.SingleOutputPwmAll(mPWM, mOutPut);
+            return LegoInfrared.SingleOutputPwmAll(mPWM, mOutPut);
         }
 
-        static public bool SinglePwm(string strDecrypt)
+        public static bool SinglePwm(string strDecrypt)
         {
-            if (Application.LegoInfrared == null)
+            if (LegoInfrared == null)
             {
                 return false;
             }
@@ -436,12 +438,12 @@ namespace nanoFramework.WebServerAndSerial.Models
 
             }
 
-            return Application.LegoInfrared.SingleOutputPwm((PwmSpeed)mPWM, (PwmOutput)mOutPut, (Channel)mChannel);
+            return LegoInfrared.SingleOutputPwm((PwmSpeed)mPWM, (PwmOutput)mOutPut, (Channel)mChannel);
         }
 
-        static public bool ComboAll(string strDecrypt)
+        public static bool ComboAll(string strDecrypt)
         {
-            if (Application.LegoInfrared == null)
+            if (LegoInfrared == null)
             {
                 return false;
             }
@@ -493,12 +495,12 @@ namespace nanoFramework.WebServerAndSerial.Models
                 }
             }
 
-            return Application.LegoInfrared.ComboModeAll(mComboBlue, mComboRed);
+            return LegoInfrared.ComboModeAll(mComboBlue, mComboRed);
         }
 
-        static public bool Combo(string strDecrypt)
+        public static bool Combo(string strDecrypt)
         {
-            if (Application.LegoInfrared == null)
+            if (LegoInfrared == null)
             {
                 return false;
             }
@@ -555,7 +557,7 @@ namespace nanoFramework.WebServerAndSerial.Models
                 }
             }
 
-            return Application.LegoInfrared.ComboMode((Speed)mComboBlue, (Speed)mComboRed, (Channel)mChannel);
+            return LegoInfrared.ComboMode((Speed)mComboBlue, (Speed)mComboRed, (Channel)mChannel);
         }
 
         private static bool TryConvertInt32(string val, out int result, int min, int max)

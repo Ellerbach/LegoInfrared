@@ -17,6 +17,9 @@ namespace nanoFramework.WebServerAndSerial.Models
         private int _spiMiso = -1;
         private string _login = string.Empty;
         private string _password = string.Empty;
+        private int _serialTx = -1;
+        private int _serialRx = -1;
+        private int _serialNumber = -1;
 
         public delegate void ConfigurationUpdated(object sender, ConfigurationEventArgs e);
         public event ConfigurationUpdated OnConfigurationUpdated;
@@ -115,6 +118,51 @@ namespace nanoFramework.WebServerAndSerial.Models
 
                 _spiMiso = value;
                 OnConfigurationUpdated?.Invoke(this, new ConfigurationEventArgs(nameof(SpiMiso)));
+            }
+        }
+
+        public int SerialCOMNumber
+        {
+            get => _serialNumber;
+            set
+            {
+                if (_serialNumber == value)
+                {
+                    return;
+                }
+
+                _serialNumber = value;
+                OnConfigurationUpdated?.Invoke(this, new ConfigurationEventArgs(nameof(SerialCOMNumber)));
+            }
+        }
+
+        public int SerialTx
+        {
+            get => _serialTx;
+            set
+            {
+                if (_serialTx == value)
+                {
+                    return;
+                }
+
+                _serialTx = value;
+                OnConfigurationUpdated?.Invoke(this, new ConfigurationEventArgs(nameof(SerialTx)));
+            }
+        }   
+        
+        public int SerialRx
+        {
+            get => _serialRx;
+            set
+            {
+                if (_serialRx == value)
+                {
+                    return;
+                }
+
+                _serialRx = value;
+                OnConfigurationUpdated?.Invoke(this, new ConfigurationEventArgs(nameof(SerialRx)));
             }
         }
 

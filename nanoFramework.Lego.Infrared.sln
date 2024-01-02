@@ -17,6 +17,8 @@ Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "nanoFramework.WebServerAndS
 EndProject
 Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "nanoFramework.WebServerAndSerial.NoBluetooth", "Samples\nanoFramework\nanoFramework.WebServerAndSerial.NoBluetooth\nanoFramework.WebServerAndSerial.NoBluetooth.nfproj", "{B1D31C92-7C4C-4181-93E2-135792643633}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServerAndSerial", "Samples\dotnet\WebServerAndSerial\WebServerAndSerial\WebServerAndSerial.csproj", "{0DF31882-E835-410E-9480-9D1D7DDAA570}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{B1D31C92-7C4C-4181-93E2-135792643633}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1D31C92-7C4C-4181-93E2-135792643633}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B1D31C92-7C4C-4181-93E2-135792643633}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0DF31882-E835-410E-9480-9D1D7DDAA570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DF31882-E835-410E-9480-9D1D7DDAA570}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DF31882-E835-410E-9480-9D1D7DDAA570}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DF31882-E835-410E-9480-9D1D7DDAA570}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{B24EA349-7AED-4454-A3BC-55F9E0642754} = {3599FB58-1779-45E3-ABBE-9998BCD325DA}
 		{774E8480-47FE-415E-A824-A23A22E8A77D} = {3599FB58-1779-45E3-ABBE-9998BCD325DA}
 		{B1D31C92-7C4C-4181-93E2-135792643633} = {3599FB58-1779-45E3-ABBE-9998BCD325DA}
+		{0DF31882-E835-410E-9480-9D1D7DDAA570} = {3599FB58-1779-45E3-ABBE-9998BCD325DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB0C100F-30BB-45FA-935B-7670BE408EAE}

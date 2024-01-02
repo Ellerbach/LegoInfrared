@@ -12,14 +12,16 @@ namespace nanoFramework.WebServerAndSerial.Controllers
     [Authentication("Basic")]
     internal class ControllerApi
     {
-        private const string PageCombo = "combo";
-        private const string PageSinglePwm = "singlepwm";
-        private const string PageContinuous = "continuous";
-        private const string PageSingleCst = "singlecst";
-        private const string PageTimeout = "timeout";
-        private const string PageComboAll = "comboall";
-        private const string PageContinuousAll = "continuousall";
-        private const string PageSinglePwmAll = "singlepwmall";
+        public const string PageCombo = "combo";
+        public const string PageSinglePwm = "singlepwm";
+        public const string PageContinuous = "continuous";
+        public const string PageSingleCst = "singlecst";
+        public const string PageTimeout = "timeout";
+        public const string PageComboAll = "comboall";
+        public const string PageContinuousAll = "continuousall";
+        public const string PageSinglePwmAll = "singlepwmall";
+        public const string PageComboPwm = "combopwm";
+        public const string PageComboPwmAll = "combopwmall";
 
         [Route("test")]
         public void Test(WebServerEventArgs e)

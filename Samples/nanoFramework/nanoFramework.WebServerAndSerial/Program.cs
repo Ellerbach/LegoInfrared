@@ -19,6 +19,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
 using System.Web;
+using System.IO.Ports;
 
 namespace nanoFramework.WebServerAndSerial
 {
@@ -28,6 +29,7 @@ namespace nanoFramework.WebServerAndSerial
         private static Improv _imp;
 #endif
         private static AppConfiguration _appConfiguration;
+        private static SerialPort _port;
         private static LegoInfrared _legoInfrared;
         public static AppConfiguration AppConfiguration { get => _appConfiguration; }
         public static LegoInfrared LegoInfrared { get => _legoInfrared; }
@@ -43,6 +45,7 @@ namespace nanoFramework.WebServerAndSerial
             if (AppConfiguration != null)
             {
                 SetLegoInfrared();
+                SetSerial();
             }
 
             _appConfiguration = AppConfiguration ?? new AppConfiguration();
@@ -92,6 +95,11 @@ namespace nanoFramework.WebServerAndSerial
             if (e.ParamName.StartsWith("Spi"))
             {
                 SetLegoInfrared();
+            }
+
+            if (e.ParamName.StartsWith("Serial"))
+            {
+                SetSerial();
             }
 
             if ((e.ParamName == nameof(AppConfiguration.Login)) || (e.ParamName == nameof(AppConfiguration.Password)))
@@ -188,7 +196,9 @@ namespace nanoFramework.WebServerAndSerial
 #endif
             {
                 string toOutput = "<html><head>" +
-                    $"<title>Lego Infrared</title></head><body>Your Lego Infrared configuraiton is: {(LegoInfrared == null ? "Invalid" : "Valid")}<br/>";
+                    $"<title>Lego Infrared</title></head><body>" +
+                    $"Your Lego Infrared configuraiton is: {(LegoInfrared == null ? "Invalid" : "Valid")}<br/>" +
+                    $"Your Serial port configration is: {(_port == null ? "Invalid" : "Valid")}<br/>";
                 toOutput += "<a href='test'>Access</a> the Lego Infrared test page.<br>";
                 toOutput += "To configure your device please go to <a href=\"config\">configuration</a><br/>";
                 toOutput += "Reset your wifi by cliking <a href=\"resetwifi\">here</a>.";
@@ -202,6 +212,7 @@ namespace nanoFramework.WebServerAndSerial
             if (_legoInfrared != null)
             {
                 _legoInfrared.Dispose();
+                _legoInfrared = null;
             }
 
             // On an ESP32, setup first the pins for the SPI
@@ -223,12 +234,141 @@ namespace nanoFramework.WebServerAndSerial
             try
             {
                 _legoInfrared = new LegoInfrared(AppConfiguration.SpiBus, AppConfiguration.SpiChipSelect);
-
             }
             catch (Exception e)
             {
-
                 Console.WriteLine($"Invalid LegoInfrared configuration: {e.Message}");
+            }
+
+            LegoInfraredExecute.LegoInfrared = _legoInfrared;
+        }
+
+        private static void SetSerial()
+        {
+            if (AppConfiguration.SerialCOMNumber >= 1 && AppConfiguration.SerialCOMNumber <= 3)
+            {
+                switch (AppConfiguration.SerialCOMNumber)
+                {
+                    case 1:
+                        if (AppConfiguration.SerialRx >= 0)
+                        {
+                            Configuration.SetPinFunction(AppConfiguration.SerialRx, DeviceFunction.COM1_RX);
+                        }
+
+                        if (AppConfiguration.SerialTx >= 0)
+                        {
+                            Configuration.SetPinFunction(AppConfiguration.SerialTx, DeviceFunction.COM1_TX);
+                        }
+
+                        break;
+                    case 2:
+                        if (AppConfiguration.SerialRx >= 0)
+                        {
+                            Configuration.SetPinFunction(AppConfiguration.SerialRx, DeviceFunction.COM2_RX);
+                        }
+
+                        if (AppConfiguration.SerialTx >= 0)
+                        {
+                            Configuration.SetPinFunction(AppConfiguration.SerialTx, DeviceFunction.COM2_TX);
+                        }
+
+                        break;
+                    case 3:
+                        if (AppConfiguration.SerialRx >= 0)
+                        {
+                            Configuration.SetPinFunction(AppConfiguration.SerialRx, DeviceFunction.COM3_RX);
+                        }
+
+                        if (AppConfiguration.SerialTx >= 0)
+                        {
+                            Configuration.SetPinFunction(AppConfiguration.SerialTx, DeviceFunction.COM3_TX);
+                        }
+
+                        break;
+                }
+
+                try
+                {
+                    _port = new SerialPort($"COM{AppConfiguration.SerialCOMNumber}", 115_200);
+                    _port.ReadTimeout = 15_000;
+                    _port.WriteTimeout = 1_000;
+                    _port.DataReceived += SerialDataReceived;
+                    _port.Open();
+                }
+                catch
+                {
+                    // No valid serial communication
+                }
+            }
+
+        }
+
+        private static void SerialDataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            if (LegoInfrared == null)
+            {
+                return;
+            }
+
+            try
+            {
+                string url;
+                url = _port.ReadLine(); //.Trim('\n');
+                if (string.IsNullOrEmpty(url))
+                {
+                    return;
+                }
+
+                bool res = false;
+
+                if (url.ToLower().StartsWith(ControllerApi.PageComboAll))
+                {
+                    res = LegoInfraredExecute.ComboAll(url);
+                }
+                else if (url.ToLower().StartsWith(ControllerApi.PageCombo))
+                {
+                    res = LegoInfraredExecute.Combo(url);
+                }
+                else if (url.ToLower().StartsWith(ControllerApi.PageContinuousAll))
+                {
+                    res = LegoInfraredExecute.ContinuousAll(url);
+                }
+                else if (url.ToLower().StartsWith(ControllerApi.PageContinuous))
+                {
+                    res = LegoInfraredExecute.Continuous(url);
+                }
+                else if (url.ToLower().StartsWith(ControllerApi.PageSingleCst))
+                {
+                    res = LegoInfraredExecute.SingleCst(url);
+                }
+                else if (url.ToLower().StartsWith(ControllerApi.PageComboPwmAll))
+                {
+                    res = LegoInfraredExecute.ComboPwmAll(url);
+                }
+                else if (url.ToLower().StartsWith(ControllerApi.PageComboPwm))
+                {
+                    res = LegoInfraredExecute.ComboPwm(url);
+                }
+                else if (url.ToLower().StartsWith(ControllerApi.PageSinglePwmAll))
+                {
+                    res = LegoInfraredExecute.SinglePwmAll(url);
+                }
+                else if (url.ToLower().StartsWith(ControllerApi.PageSinglePwm))
+                {
+                    res = LegoInfraredExecute.SinglePwm(url);
+                }
+                else if (url.ToLower().StartsWith(ControllerApi.PageTimeout))
+                {
+                    res = LegoInfraredExecute.SingleTimeout(url);
+                }
+
+                string ret = res ? "OK\r\n" : "KO\r\n";
+                _port.WriteLine(ret);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception in serial: {ex}");
             }
         }
 
