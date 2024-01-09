@@ -1,0 +1,94 @@
+﻿@model WebServerAndSerial.Models.AppConfiguration
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>View</h1>
+
+<h4>AppConfiguration</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="InfraredSpiBusNumber" class="control-label"></label>
+                <input asp-for="InfraredSpiBusNumber" class="form-control" />
+                <span asp-validation-for="InfraredSpiBusNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InfraredSpiChipSelect" class="control-label"></label>
+                <input asp-for="InfraredSpiChipSelect" class="form-control" />
+                <span asp-validation-for="InfraredSpiChipSelect" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SignalSpiBusNumber" class="control-label"></label>
+                <input asp-for="SignalSpiBusNumber" class="form-control" />
+                <span asp-validation-for="SignalSpiBusNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SignalSpiChipSelect" class="control-label"></label>
+                <input asp-for="SignalSpiChipSelect" class="form-control" />
+                <span asp-validation-for="SignalSpiChipSelect" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SignalNumberSignals" class="control-label"></label>
+                <input asp-for="SignalNumberSignals" class="form-control" />
+                <span asp-validation-for="SignalNumberSignals" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SwitchNumberSwitches" class="control-label"></label>
+                <input asp-for="SwitchNumberSwitches" class="form-control" />
+                <span asp-validation-for="SwitchNumberSwitches" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SwitchMultiplexPins" class="control-label"></label>
+                @for (int i = 0; i < Model.SwitchMultiplexPins.Length; i++)
+                {
+                    <div class="form-group">
+                        <label for="SwitchMultiplexPins[@i]" class="control-label">Switch Multiplex Pin @i</label>
+                        <input id="SwitchMultiplexPins[@i]" name="SwitchMultiplexPins[@i]" value="@Model.SwitchMultiplexPins[i]" class="form-control" />
+                        <span asp-validation-for="SignalSpiChipSelect" class="text-danger"></span>
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                <label asp-for="SwitchMinimumDuration" class="control-label"></label>
+                <input asp-for="SwitchMinimumDuration" class="form-control" />
+                <span asp-validation-for="SwitchMinimumDuration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SwitchMaximumDuration" class="control-label"></label>
+                <input asp-for="SwitchMaximumDuration" class="form-control" />
+                <span asp-validation-for="SwitchMaximumDuration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SwitchMaximumAngle" class="control-label"></label>
+                <input asp-for="SwitchMaximumAngle" class="form-control" />
+                <span asp-validation-for="SwitchMaximumAngle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SwitchPwmChip" class="control-label"></label>
+                <input asp-for="SwitchPwmChip" class="form-control" />
+                <span asp-validation-for="SwitchPwmChip" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SwitchPwmChannel" class="control-label"></label>
+                <input asp-for="SwitchPwmChannel" class="form-control" />
+                <span asp-validation-for="SwitchPwmChannel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

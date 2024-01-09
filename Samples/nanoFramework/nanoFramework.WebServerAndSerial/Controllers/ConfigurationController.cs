@@ -13,16 +13,16 @@ using System.Web;
 namespace nanoFramework.WebServerAndSerial.Controllers
 {
     [Authentication("Basic")]
-    internal class ControllerConfiguration
+    internal class ConfigurationController
     {
-        [Route("config")]
+        [Route("configuration/config")]
         public void Config(WebServerEventArgs e)
         {
             // We need to clean things to get some memory
             Runtime.Native.GC.Run(true);
 
             // TODO: check the basic authentication
-            string route = "<!DOCTYPE html><html><head><title>Configuration</title><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"></head><body><fieldset><legend>Configuration</legend><form action=\"process\" method=\"post\">";
+            string route = "<!DOCTYPE html><html><head><title>Configuration</title><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"></head><body><fieldset><legend>Configuration</legend><form action=\"/configuration/process\" method=\"post\">";
             e.Context.Response.ContentType = "text/html";
             // It's the moment to create a new configuration
             var config = Application.AppConfiguration ?? new AppConfiguration();
@@ -59,7 +59,7 @@ namespace nanoFramework.WebServerAndSerial.Controllers
             WebServer.WebServer.OutPutStream(e.Context.Response, route);
         }
 
-        [Route("process")]
+        [Route("configuration/process")]
         [Method("POST")]
         public void Process(WebServerEventArgs e)
         {
@@ -101,7 +101,7 @@ namespace nanoFramework.WebServerAndSerial.Controllers
             WebServer.WebServer.OutPutStream(e.Context.Response, route);
         }
 
-        [Route("resetwifi")]
+        [Route("configuration/resetwifi")]
         public void ResetWifi(WebServerEventArgs e)
         {
 #if NO_BLUETOOTH

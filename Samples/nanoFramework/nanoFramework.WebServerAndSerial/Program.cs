@@ -75,7 +75,7 @@ namespace nanoFramework.WebServerAndSerial
 #else
             Console.WriteLine($"Connected with wifi credentials. IP Address: {GetCurrentIPAddress()}");
 #endif
-            _server = new WebServer.WebServer(80, HttpProtocol.Http, new Type[] { typeof(ControllerApi), typeof(ControllerConfiguration) });
+            _server = new WebServer.WebServer(80, HttpProtocol.Http, new Type[] { typeof(ApiController), typeof(ConfigurationController) });
             // Add a handler for commands that are received by the server.
             _server.CommandReceived += ServerCommandReceived;
 
@@ -321,43 +321,43 @@ namespace nanoFramework.WebServerAndSerial
 
                 bool res = false;
 
-                if (url.ToLower().StartsWith(ControllerApi.PageComboAll))
+                if (url.ToLower().StartsWith(ApiController.PageComboAll))
                 {
                     res = LegoInfraredExecute.ComboAll(url);
                 }
-                else if (url.ToLower().StartsWith(ControllerApi.PageCombo))
+                else if (url.ToLower().StartsWith(ApiController.PageCombo))
                 {
                     res = LegoInfraredExecute.Combo(url);
                 }
-                else if (url.ToLower().StartsWith(ControllerApi.PageContinuousAll))
+                else if (url.ToLower().StartsWith(ApiController.PageContinuousAll))
                 {
                     res = LegoInfraredExecute.ContinuousAll(url);
                 }
-                else if (url.ToLower().StartsWith(ControllerApi.PageContinuous))
+                else if (url.ToLower().StartsWith(ApiController.PageContinuous))
                 {
                     res = LegoInfraredExecute.Continuous(url);
                 }
-                else if (url.ToLower().StartsWith(ControllerApi.PageSingleCst))
+                else if (url.ToLower().StartsWith(ApiController.PageSingleCst))
                 {
                     res = LegoInfraredExecute.SingleCst(url);
                 }
-                else if (url.ToLower().StartsWith(ControllerApi.PageComboPwmAll))
+                else if (url.ToLower().StartsWith(ApiController.PageComboPwmAll))
                 {
                     res = LegoInfraredExecute.ComboPwmAll(url);
                 }
-                else if (url.ToLower().StartsWith(ControllerApi.PageComboPwm))
+                else if (url.ToLower().StartsWith(ApiController.PageComboPwm))
                 {
                     res = LegoInfraredExecute.ComboPwm(url);
                 }
-                else if (url.ToLower().StartsWith(ControllerApi.PageSinglePwmAll))
+                else if (url.ToLower().StartsWith(ApiController.PageSinglePwmAll))
                 {
                     res = LegoInfraredExecute.SinglePwmAll(url);
                 }
-                else if (url.ToLower().StartsWith(ControllerApi.PageSinglePwm))
+                else if (url.ToLower().StartsWith(ApiController.PageSinglePwm))
                 {
                     res = LegoInfraredExecute.SinglePwm(url);
                 }
-                else if (url.ToLower().StartsWith(ControllerApi.PageTimeout))
+                else if (url.ToLower().StartsWith(ApiController.PageTimeout))
                 {
                     res = LegoInfraredExecute.SingleTimeout(url);
                 }

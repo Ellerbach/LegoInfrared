@@ -19,8 +19,8 @@
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
-    <Compile Include="..\nanoFramework.WebServerAndSerial\Controllers\ControllerConfiguration.cs">
-      <Link>Controllers\ControllerConfiguration.cs</Link>
+    <Compile Include="..\nanoFramework.WebServerAndSerial\Controllers\ConfigurationController.cs">
+      <Link>Controllers\ConfigurationController.cs</Link>
     </Compile>
     <Compile Include="..\nanoFramework.WebServerAndSerial\Models\AppConfiguration.cs">
       <Link>Models\AppConfiguration.cs</Link>
@@ -35,8 +35,8 @@
       <Link>Program.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\nanoFramework.WebServerAndSerial\Controllers\ControllerApi.cs">
-      <Link>Controllers\ControllerApi.cs</Link>
+    <Compile Include="..\nanoFramework.WebServerAndSerial\Controllers\ApiController.cs">
+      <Link>Controllers\ApiController.cs</Link>
     </Compile>
     <Compile Include="..\nanoFramework.WebServerAndSerial\ResourceWeb.Designer.cs">
       <Link>ResourceWeb.Designer.cs</Link>

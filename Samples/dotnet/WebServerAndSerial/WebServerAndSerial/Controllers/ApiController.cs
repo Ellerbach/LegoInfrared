@@ -1,16 +1,16 @@
-﻿// Licensed to the Laurent Ellerbach under one or more agreements.
+// Licensed to the Laurent Ellerbach under one or more agreements.
 // Laurent Ellerbach licenses this file to you under the MIT license.
 
-using nanoFramework.WebServer;
-using nanoFramework.WebServerAndSerial.Models;
-using System;
-using System.Net;
+using Lego.Infrared;
+using Microsoft.AspNetCore.Mvc;
 using System.Text;
+using WebServerAndSerial.Models;
 
-namespace nanoFramework.WebServerAndSerial.Controllers
+namespace WebServerAndSerial.Controllers
 {
-    [Authentication("Basic")]
-    internal class ApiController
+    [ApiController]
+    [Route("[controller]")]
+    public class ApiController : ControllerBase
     {
         public const string PageCombo = "combo";
         public const string PageSinglePwm = "singlepwm";
@@ -23,14 +23,18 @@ namespace nanoFramework.WebServerAndSerial.Controllers
         public const string PageComboPwm = "combopwm";
         public const string PageComboPwmAll = "combopwmall";
 
-        [Route("api/test")]
-        public void Test(WebServerEventArgs e)
-        {
-            e.Context.Response.ContentType = "text/html";
-            // Note that we won't send the size, it's going to be guessed by the serveur when the connection will end
-            e.Context.Response.KeepAlive = false;
-            e.Context.Response.StatusCode = (int)HttpStatusCode.OK;
+        private readonly ILogger<ApiController> _logger;
+        private readonly AppConfiguration _config;
 
+        public ApiController(ILogger<ApiController> logger, AppConfiguration configuration)
+        {
+            _logger = logger;
+            _config = configuration;
+        }
+
+        [HttpGet("Test")]
+        public IActionResult Get()
+        {
             string strResp = string.Empty;
             // Start HTML document
             strResp = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
@@ -283,88 +287,176 @@ namespace nanoFramework.WebServerAndSerial.Controllers
             strResp += "</form></fieldset>";
 
             strResp += "</body></html>";
-            WebServer.WebServer.OutPutStream(e.Context.Response, strResp);
+
+
+            return Content(strResp, "text/html", Encoding.UTF8);
         }
 
-        [Route("api/" + PageCombo)]
-        public void Combo(WebServerEventArgs e)
+        [HttpGet(PageCombo)]
+        public IActionResult Combo(Lego.Infrared.Channel ch, Speed bl, Speed rd)
         {
-            // http://192.168.1.85/combo?rd=0&bl=0&ch=0
-            var ret = LegoInfraredExecute.Combo(e.Context.Request.RawUrl);
+            if (_config.LegoInfrared == null)
+            {
+                return BadRequest();
+            }
 
-            WebServer.WebServer.OutputHttpCode(e.Context.Response, ret ? HttpStatusCode.OK : HttpStatusCode.BadRequest);
+            var res = _config.LegoInfrared.ComboMode(bl, rd, ch);
+            return res ? Ok() : BadRequest();
         }
 
-        [Route("api/" + PageSinglePwm)]
-        public void SinglePwm(WebServerEventArgs e)
+        [HttpGet(PageComboAll)]
+        public IActionResult ComboAll(Speed rd0, Speed bl0, Speed rd1, Speed bl1, Speed rd2, Speed bl2, Speed rd3, Speed bl3)
         {
-            // http://192.168.1.85/singlepwm?pw=0&op=0&ch=0
-            var ret = LegoInfraredExecute.SinglePwm(e.Context.Request.RawUrl);
+            if (_config.LegoInfrared == null)
+            {
+                return BadRequest();
+            }
 
-            WebServer.WebServer.OutputHttpCode(e.Context.Response, ret ? HttpStatusCode.OK : HttpStatusCode.BadRequest);
+            Speed[] mComboBlue = new Speed[4] { bl0, bl1, bl2, bl3 };
+            Speed[] mComboRed = new Speed[4] { rd0, rd1, rd2, rd3 };
+            var res = _config.LegoInfrared.ComboModeAll(mComboBlue, mComboRed);
+            return res ? Ok() : BadRequest();
         }
 
-        [Route("api/" + PageContinuous)]
-        public void Continuous(WebServerEventArgs e)
+        [HttpGet(PageTimeout)]
+        public IActionResult SingleTimeout(Lego.Infrared.Channel ch, Function fc, Output op)
         {
-            // http://192.168.1.85/continuous?fc=0&op=0
-            var ret = LegoInfraredExecute.Continuous(e.Context.Request.RawUrl);
+            if (_config.LegoInfrared == null)
+            {
+                return BadRequest();
+            }
 
-            WebServer.WebServer.OutputHttpCode(e.Context.Response, ret ? HttpStatusCode.OK : HttpStatusCode.BadRequest);
+            var res = _config.LegoInfrared.SingleOutputTimeout(fc, op, ch);
+            return res ? Ok() : BadRequest();
         }
 
-        [Route("api/" + PageSingleCst)]
-        public void SingleCst(WebServerEventArgs e)
+        [HttpGet(PageContinuousAll)]
+        public IActionResult ContinuousAll(Function fc0, Output op0, Function fc1, Output op1, Function fc2, Output op2, Function fc3, Output op3)
         {
-            // http://192.168.1.85/singlecst?pw=0&op=0&ch=0
-            var ret = LegoInfraredExecute.SingleCst(e.Context.Request.RawUrl);
+            if (_config.LegoInfrared == null)
+            {
+                return BadRequest();
+            }
 
-            WebServer.WebServer.OutputHttpCode(e.Context.Response, ret ? HttpStatusCode.OK : HttpStatusCode.BadRequest);
+            Function[] mFunction = new Function[4] { fc0, fc1, fc2, fc3 };
+            Output[] mOutPut = new Output[4] { op0, op1, op2, op3 };
+            var res = _config.LegoInfrared.SingleOutputContinuousAll(mFunction, mOutPut);
+            return res ? Ok() : BadRequest();
         }
 
-        [Route("api/" + PageTimeout)]
-        public void Timeout(WebServerEventArgs e)
+        [HttpGet(PageContinuous)]
+        public IActionResult Continuous(Lego.Infrared.Channel ch, Function fc, Output op)
         {
-            // http://192.168.1.85/timeout?fc=0&op=0&ch=0
-            var ret = LegoInfraredExecute.SingleTimeout(e.Context.Request.RawUrl);
+            if (_config.LegoInfrared == null)
+            {
+                return BadRequest();
+            }
 
-            WebServer.WebServer.OutputHttpCode(e.Context.Response, ret ? HttpStatusCode.OK : HttpStatusCode.BadRequest);
+            var res = _config.LegoInfrared.SingleOutputContinuous(fc, op, ch);
+            return res ? Ok() : BadRequest();
         }
 
-        [Route("api/" + PageComboAll)]
-        public void ComboAll(WebServerEventArgs e)
+        [HttpGet(PageComboPwmAll)]
+        public IActionResult ComboPwmAll(PwmSpeed pwr0, PwmSpeed pwb0, PwmSpeed pwr1, PwmSpeed pwb1, PwmSpeed pwr2, PwmSpeed pwb2, PwmSpeed pwr3, PwmSpeed pwb3)
         {
-            // http://192.168.1.85/comboall?rd0=0&bl0=0&rd1=0&bl1=0&rd2=0&bl2=0&rd3=0&bl3=0
-            var ret = LegoInfraredExecute.ComboAll(e.Context.Request.RawUrl);
+            if (_config.LegoInfrared == null)
+            {
+                return BadRequest();
+            }
 
-            WebServer.WebServer.OutputHttpCode(e.Context.Response, ret ? HttpStatusCode.OK : HttpStatusCode.BadRequest);
+            PwmSpeed[] mPWMR = new PwmSpeed[4] { pwr0, pwr1, pwr2, pwr3 };
+            PwmSpeed[] mPWMB = new PwmSpeed[4] { pwb0, pwb1, pwb2, pwb3 };
+            var res = _config.LegoInfrared.ComboPwmAll(mPWMR, mPWMB);
+            return res ? Ok() : BadRequest();
         }
 
-        [Route("api/" + PageContinuousAll)]
-        public void ContinuousAll(WebServerEventArgs e)
+        [HttpGet(PageComboPwm)]
+        public IActionResult ComboPwm(Lego.Infrared.Channel ch, PwmSpeed p1, PwmSpeed p2)
         {
-            // http://192.168.1.85/continuousall?fc0=0&op0=0&fc1=0&op1=0&fc2=0&op2=0&fc3=0&op3=0
-            var ret = LegoInfraredExecute.ContinuousAll(e.Context.Request.RawUrl);
+            if (_config.LegoInfrared == null)
+            {
+                return BadRequest();
+            }
 
-            WebServer.WebServer.OutputHttpCode(e.Context.Response, ret ? HttpStatusCode.OK : HttpStatusCode.BadRequest);
+            var res = _config.LegoInfrared.ComboPwm(p1, p2, ch);
+            return res ? Ok() : BadRequest();
         }
 
-        [Route("api/" + PageSinglePwmAll)]
-        public void SinglePwmAll(WebServerEventArgs e)
+        [HttpGet(PageSingleCst)]
+        public IActionResult SingleCst(Lego.Infrared.Channel ch, ClearSetToggle pw, PwmOutput op)
         {
-            // http://192.168.1.85/singlepwmall?pw0=0&op0=0&pw1=0&op1=0&pw2=0&op2=0&pw3=0&op3=0
-            var ret = LegoInfraredExecute.SinglePwmAll(e.Context.Request.RawUrl);
+            if (_config.LegoInfrared == null)
+            {
+                return BadRequest();
+            }
 
-            WebServer.WebServer.OutputHttpCode(e.Context.Response, ret ? HttpStatusCode.OK : HttpStatusCode.BadRequest);
+            var res = _config.LegoInfrared.SingleOutputClearSetToggle(pw, op, ch);
+            return res ? Ok() : BadRequest();
         }
 
-        private static void OutPutStream(HttpListenerResponse response, string strResp)
-        {
-            byte[] bytes = Encoding.UTF8.GetBytes(strResp);
-            response.OutputStream.Write(bytes, 0, bytes.Length);
 
-            // We need to clean things to get some memory
-            Runtime.Native.GC.Run(true);
+        [HttpGet(PageSinglePwmAll)]
+        public IActionResult SinglePwmAll(PwmSpeed pw0, PwmOutput op0, PwmSpeed pw1, PwmOutput op1, PwmSpeed pw2, PwmOutput op2, PwmSpeed pw3, PwmOutput op3)
+        {
+            if (_config.LegoInfrared == null)
+            {
+                return BadRequest();
+            }
+
+            PwmSpeed[] mPWM = new PwmSpeed[4] { pw0, pw1, pw2, pw3 };
+            PwmOutput[] mOutPut = new PwmOutput[4] { op0, op1, op2, op3 };
+            var res = _config.LegoInfrared.SingleOutputPwmAll(mPWM, mOutPut);
+            return res ? Ok() : BadRequest();
+        }
+
+        [HttpGet(PageSinglePwm)]
+        public IActionResult SinglePwm(Lego.Infrared.Channel ch, PwmSpeed pw, PwmOutput op)
+        {
+            if (_config.LegoInfrared == null)
+            {
+                return BadRequest();
+            }
+
+            var res = _config.LegoInfrared.SingleOutputPwm(pw, op, ch);
+            return res ? Ok() : BadRequest();
+        }
+
+        [HttpGet(nameof(Signal))]
+        public IActionResult Signal(byte si, bool md)
+        {
+            if (_config.SignalManagement == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                _config.SignalManagement.ChangeSignal(si, md);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet(nameof(Switch))]
+        public IActionResult Switch(byte si, bool md)
+        {
+            if (_config.SwitchManagement == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                _config.SwitchManagement.ChangeSwitch(si, md);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }

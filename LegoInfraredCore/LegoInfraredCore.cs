@@ -457,7 +457,6 @@ namespace Lego.Infrared
 
         private bool SpiSend(ushort code)
         {
-            bool isvalid = true;
             try
             {
                 ushort[] tosend = new ushort[522]; // 522 is the max size of the message to be send
@@ -493,7 +492,7 @@ namespace Lego.Infrared
 #else
                     // We need a byte buffer
                     byte[] buff = new byte[tosend.Length * 2];
-                    tosend.CopyTo(buff, 0);
+                    Buffer.BlockCopy(tosend, 0, buff, 0, buff.Length);
                     _spi.Write(buff);
 #endif
                 }
@@ -505,10 +504,10 @@ namespace Lego.Infrared
             catch (Exception e)
             {
                 Debug.WriteLine("error spi send: " + e.Message);
-                isvalid = false;
+                return false;
             }
 
-            return isvalid;
+            return true;
         }
 
         /// <inheritdoc/>

@@ -18,14 +18,14 @@
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
-    <Compile Include="Controllers\ControllerConfiguration.cs" />
+    <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Improv\Improv.cs" />
     <Compile Include="Models\AppConfiguration.cs" />
     <Compile Include="Models\ConfigurationEventArgs.cs" />
     <Compile Include="Models\LegoInfraredExecute.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\ControllerApi.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="ResourceWeb.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
