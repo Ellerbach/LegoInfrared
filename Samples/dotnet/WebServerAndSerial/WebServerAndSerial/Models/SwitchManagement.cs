@@ -8,12 +8,11 @@ using System.Diagnostics;
 
 namespace WebServerAndSerial.Models
 {
-    public class SwitchManagement : IDisposable
+    public class SwitchManagement : ISwitchManagement
     {
         public const byte MaximumNumberSwotches = 16;
 
         private bool[] _SwitchStatus;
-        private int _numOutput;
         private uint _maxAngle;
         private GpioPin[] _outputMiltiplex;
         private GpioController _gpio;
@@ -24,42 +23,17 @@ namespace WebServerAndSerial.Models
         // Pulse Width: 540-2470 µs 
         private ServoMotor _switch;
 
-        public SwitchManagement(byte numberSwitch, uint minDur, uint maxDur, uint maxAng, int[] multiplexPins, int pwmChip, int pwmChannel, GpioController? gpio = null, bool shouldDispose = true)
+        public SwitchManagement(uint minDur, uint maxDur, int[] multiplexPins, int pwmChip, int pwmChannel, GpioController? gpio = null, bool shouldDispose = true)
         {
-            _switch = new ServoMotor(PwmChannel.Create(pwmChip, pwmChannel, 50), maxAng, minDur, maxDur);
+            _maxAngle = 180;
+            _switch = new ServoMotor(PwmChannel.Create(pwmChip, pwmChannel, 50), _maxAngle, minDur, maxDur);
             _switch.Start();
-            _maxAngle = maxAng;
-            NumberSwitches = numberSwitch;
-            if ((NumberSwitches <= 0) && (NumberSwitches > MaximumNumberSwotches))
-            {
-                throw new Exception("Not correct number of Signals");
-            }
+           
+            _SwitchStatus = new bool[MaximumNumberSwotches];
 
-            _SwitchStatus = new bool[NumberSwitches];
-            if (NumberSwitches <= 2)
+            if (multiplexPins.Length != 4)
             {
-                _numOutput = 1;
-            }
-            else if (NumberSwitches <= 4)
-            {
-                _numOutput = 2;
-            }
-            else if (NumberSwitches <= 8)
-            {
-                _numOutput = 3;
-            }
-            else if (NumberSwitches <= 16)
-            {
-                _numOutput = 4;
-            }
-            else
-            {
-                throw new ArgumentException("Too many Signals");
-            }
-
-            if (multiplexPins.Length != _numOutput)
-            {
-                throw new ArgumentException("Not correct number of switches");
+                throw new ArgumentException("You need an array of 4 GPIO pins, even is all are -1 (not used).");
             }
 
             // initialise the outputs based on the number of signals
@@ -79,25 +53,23 @@ namespace WebServerAndSerial.Models
 
             Debug.Write("All GPIO initialised in Switch");
             // initialise all signals to "false"
-            for (byte i = 0; i < NumberSwitches; i++)
+            for (byte i = 0; i < MaximumNumberSwotches; i++)
             {
                 ChangeSwitch(i, false);
             }
 
         }
 
-        public byte NumberSwitches { get; }
-
         public void ChangeSwitch(byte NumSignal, bool value)
         {
-            if ((NumSignal <= 0) && (NumSignal > NumberSwitches))
+            if ((NumSignal <= 0) && (NumSignal > MaximumNumberSwotches))
             {
                 throw new Exception("Not correct number of Signals");
             }
 
             // need to convert to select the right Signal
             _SwitchStatus[NumSignal] = value;
-            for (int j = 0; j < _numOutput; j++)
+            for (int j = 0; j < 4; j++)
             {
                 if (((NumSignal >> j) & 1) == 1)
                 {
@@ -123,16 +95,18 @@ namespace WebServerAndSerial.Models
             if (value)
             {
                 _switch.WriteAngle(_maxAngle);
+                Debug.WriteLine($"Angle {_maxAngle}");
             }
             else
             {
                 _switch.WriteAngle(0);
+                Debug.WriteLine($"Angle 0");
             }
         }
 
         public bool GetSwitch(byte NumSignal)
         {
-            if ((NumSignal <= 0) && (NumSignal > NumberSwitches))
+            if ((NumSignal <= 0) && (NumSignal > MaximumNumberSwotches))
             {
                 throw new Exception("Not correct number of Signals");
             }

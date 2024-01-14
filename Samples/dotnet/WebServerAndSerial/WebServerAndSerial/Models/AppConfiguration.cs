@@ -60,7 +60,11 @@ namespace WebServerAndSerial.Models
 
             try
             {
-                SignalManagement = new SignalManagement(SignalSpiBusNumber, SignalSpiChipSelect, SignalNumberSignals);
+#if DEBUG
+                SignalManagement = new SignalDebug();
+#else
+                SignalManagement = new SignalManagement(SignalSpiBusNumber, SignalSpiChipSelect);
+#endif
             }
             catch
             {
@@ -69,8 +73,12 @@ namespace WebServerAndSerial.Models
 
             try
             {
-                SwitchManagement = new SwitchManagement(SwitchNumberSwitches, SwitchMinimumDuration, SwitchMaximumDuration,
-                    SwitchMaximumAngle, SwitchMultiplexPins, SwitchPwmChip, SwitchPwmChannel);
+#if DEBUG
+                SwitchManagement = new SwitchDebug();
+#else
+                SwitchManagement = new SwitchManagement(SwitchMinimumDuration, SwitchMaximumDuration,
+                    SwitchMultiplexPins, SwitchPwmChip, SwitchPwmChannel);
+#endif
             }
             catch
             {
@@ -82,10 +90,10 @@ namespace WebServerAndSerial.Models
         public LegoInfrared? LegoInfrared { get; internal set; }
 
         [JsonIgnore]
-        public SwitchManagement? SwitchManagement { get; internal set; }
+        public ISwitchManagement? SwitchManagement { get; internal set; }
 
         [JsonIgnore]
-        public SignalManagement? SignalManagement { get; internal set; }
+        public ISignalManagement? SignalManagement { get; internal set; }
 
         public List<Train> Trains { get; set; } = new List<Train>();
 
@@ -108,14 +116,6 @@ namespace WebServerAndSerial.Models
         [Display(Name = "Signal SPI Chip Select")]
         public int SignalSpiChipSelect { get; set; }
 
-        [Display(Name = "Number of Signals")]
-        [Range(0, SignalManagement.MaximunNumberSignals, ErrorMessage = "You can only have 16 maximum.")]
-        public byte SignalNumberSignals { get; set; }
-
-        [Display(Name = "Number of Switches")]
-        [Range(0, SwitchManagement.MaximumNumberSwotches, ErrorMessage = "You can only have 16 maximum.")]
-        public byte SwitchNumberSwitches { get; set; }
-
         [Display(Name = "Servo Maximum Duration in microseconds")]
         [Range(0, uint.MaxValue, ErrorMessage = "The value must be positive.")]
         public uint SwitchMaximumDuration { get; set; }
@@ -123,10 +123,6 @@ namespace WebServerAndSerial.Models
         [Display(Name = "Servo Minimum Durationin microseconds")]
         [Range(0, uint.MaxValue, ErrorMessage = "The value must be positive.")]
         public uint SwitchMinimumDuration { get; set; }
-
-        [Display(Name = "Servo Maximum Angle indegrees")]
-        [Range(0, 360, ErrorMessage = "The value must a positive valid angle.")]
-        public uint SwitchMaximumAngle { get; set; }
 
         [Display(Name = "Pins for the servo multiplexer")]
         public int[] SwitchMultiplexPins { get; set; }

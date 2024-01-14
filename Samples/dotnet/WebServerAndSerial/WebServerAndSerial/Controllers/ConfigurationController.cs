@@ -38,14 +38,11 @@ namespace WebServerAndSerial.Controllers
             {
                 _configuration.InfraredSpiBusNumber = collection.InfraredSpiBusNumber;
                 _configuration.InfraredSpiChipSelect = collection.InfraredSpiChipSelect;
-                _configuration.SignalNumberSignals = collection.SignalNumberSignals;
                 _configuration.SignalSpiBusNumber = collection.SignalSpiBusNumber;                                
                 _configuration.SignalSpiChipSelect = collection.SignalSpiChipSelect;
-                _configuration.SwitchMaximumAngle = collection.SwitchMaximumAngle;
                 _configuration.SwitchMaximumDuration = collection.SwitchMaximumDuration;
                 _configuration.SwitchMinimumDuration = collection.SwitchMinimumDuration;
                 _configuration.SwitchMultiplexPins = collection.SwitchMultiplexPins;
-                _configuration.SwitchNumberSwitches = collection.SwitchNumberSwitches;
                 _configuration.SwitchPwmChannel = collection.SwitchPwmChannel;
                 _configuration.SwitchPwmChip = collection.SwitchPwmChip;
                 _configuration.Save();

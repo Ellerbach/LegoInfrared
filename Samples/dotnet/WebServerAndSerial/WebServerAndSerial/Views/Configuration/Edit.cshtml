@@ -33,16 +33,6 @@
                 <span asp-validation-for="SignalSpiChipSelect" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SignalNumberSignals" class="control-label"></label>
-                <input asp-for="SignalNumberSignals" class="form-control" />
-                <span asp-validation-for="SignalNumberSignals" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SwitchNumberSwitches" class="control-label"></label>
-                <input asp-for="SwitchNumberSwitches" class="form-control" />
-                <span asp-validation-for="SwitchNumberSwitches" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="SwitchMultiplexPins" class="control-label"></label>
                 @for (int i = 0; i < Model.SwitchMultiplexPins.Length; i++)
                 {
@@ -62,11 +52,6 @@
                 <label asp-for="SwitchMaximumDuration" class="control-label"></label>
                 <input asp-for="SwitchMaximumDuration" class="form-control" />
                 <span asp-validation-for="SwitchMaximumDuration" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SwitchMaximumAngle" class="control-label"></label>
-                <input asp-for="SwitchMaximumAngle" class="form-control" />
-                <span asp-validation-for="SwitchMaximumAngle" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SwitchPwmChip" class="control-label"></label>

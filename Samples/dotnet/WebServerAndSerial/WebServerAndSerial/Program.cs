@@ -2,6 +2,7 @@
 // Laurent Ellerbach licenses this file to you under the MIT license.
 
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.Extensions.FileProviders;
 using WebServerAndSerial.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,18 +17,6 @@ builder.Services.AddSwaggerGen();
 
 AppConfiguration config = AppConfiguration.Load();
 builder.Services.AddSingleton(config);
-
-SwitchManagement swch = null!;
-try
-{
-    swch = new SwitchManagement(config.SwitchNumberSwitches, config.SwitchMinimumDuration, config.SwitchMaximumDuration,
-        config.SwitchMaximumAngle, config.SwitchMultiplexPins, config.SwitchPwmChip, config.SwitchPwmChannel);
-    builder.Services.AddSingleton(swch);
-}
-catch 
-{
-// Nothing
-}
 
 // Need to figure out how to properly do this
 var dir = new DirectoryInfo(@"/var/keys/");
@@ -49,6 +38,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(builder.Environment.ContentRootPath, "config")),
+    RequestPath = "/config"
+});
 
 app.UseAuthorization();
 

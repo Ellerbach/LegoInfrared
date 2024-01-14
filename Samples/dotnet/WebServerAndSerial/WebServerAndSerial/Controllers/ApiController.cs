@@ -440,6 +440,40 @@ namespace WebServerAndSerial.Controllers
             }
         }
 
+        [HttpGet(nameof(SignalStatus))]
+        public IActionResult SignalStatus()
+        {
+            if (_config.SignalManagement == null)
+            {
+                return BadRequest();
+            }
+
+            string strResp = string.Empty;
+            for (byte i = 0; i < SignalManagement.MaximunNumberSignals; i++)
+            {
+                strResp += _config.SignalManagement.GetSignal(i) ? "1" : "0";
+            }
+
+            return Ok(strResp);
+        }
+
+        [HttpGet(nameof(SwitchStatus))]
+        public IActionResult SwitchStatus()
+        {
+            if (_config.SwitchManagement == null)
+            {
+                return BadRequest();
+            }
+
+            string strResp = string.Empty;
+            for (byte i = 0; i < SwitchManagement.MaximumNumberSwotches; i++)
+            {
+                strResp += _config.SwitchManagement.GetSwitch(i) ? "1" : "0";
+            }
+
+            return Ok(strResp);
+        }
+
         [HttpGet(nameof(Switch))]
         public IActionResult Switch(byte si, bool md)
         {

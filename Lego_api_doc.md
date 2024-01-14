@@ -10,7 +10,7 @@ The board can be piloted either thru HTTP or serial. Both are using a very simil
 
 ## Web server configuration
 
-The webserver is configured by default on port 80. The only way to change it is in the code. You can go to the [<http://ipaddress/config>](http://ipaddress/config) to setup a basic authentication. By default, the login and password are empty. You still need to say you're using a basic authentication to have it working. If you need to change the port because you want to expose it on the internet, I recommend you to change the route in your router and not the port on the device.
+The WebServer is configured by default on port 80. The only way to change it is in the code. You can go to the [<http://ipaddress/configuration>](http://ipaddress/configuration) to setup a basic authentication. By default, the login and password are empty. You still need to say you're using a basic authentication to have it working. If you need to change the port because you want to expose it on the internet, I recommend you to change the route in your router and not the port on the device.
 
 ## Serial port configuration
 
@@ -27,11 +27,11 @@ ReadTimeout = 10;
 
 As for the web server, there is no way to change the settings in a configuration file. To change them, you'll have to change the values in the code and recompile the project.
 
-The serial port GPIO pins has to be setup in the config page [<http://ipaddress/config>](http://ipaddress/config).
+The serial port GPIO pins has to be setup in the config page [<http://ipaddress/configuration>](http://ipaddress/configuration).
 
 ## HTTP Communication protocol
 
-The communication protocol looks like: [<http://ipaddress/combo?rd=3&bl=0&ch=1>](http://ipaddress/combo?rd=3&bl=0&ch=1)
+The communication protocol looks like: [<http://ipaddress/api/combo?rd=3&bl=0&ch=1>](http://ipaddress/api/combo?rd=3&bl=0&ch=1)
 
 The answer is either 200 OK either Bad Request 400.
 
@@ -93,7 +93,7 @@ This is a combo command controlling the state of both output Red and Blue at the
 
 This mode has timeout for lost IR.
 
-Usage: combo?rd=1&bl=8&ch=2
+Usage: `combo?rd=1&bl=8&ch=2`
 
 ### rd
 
@@ -123,7 +123,7 @@ This mode is able to control: Clear/set/toggle of an individual pin C1 or C2 on 
 
 This mode has no timeout for lost IR.
 
-Usage: continuous?fc=2&op=2&ch=2
+Usage: `continuous?fc=2&op=2&ch=2`
 
 ### fc
 
@@ -153,7 +153,7 @@ This mode is able to control: Clear/set/toggle of an individual pin C1 or C2 on 
 
 This mode has timeout for lost IR.
 
-Usage: timeout?fc=1&op=1&ch=1
+Usage: `timeout?fc=1&op=1&ch=1`
 
 ### fc
 
@@ -185,7 +185,7 @@ This mode has no timeout for lost IR.
 
 This function is most likely use to set a nominative speed to a motor.
 
-Usage: singlepwm?pw=4&op=1&ch=3
+Usage: `singlepwm?pw=4&op=1&ch=3`
 
 ### pw
 
@@ -222,7 +222,7 @@ This mode is able to control: One output at a time with clear/set/toggle control
 
 This mode has no timeout for lost IR on all commands except "full forward" and "full backward".
 
-Usage: singlecst?pw=4&op=1&ch=2
+Usage: `singlecst?pw=4&op=1&ch=2`
 
 ### pw
 
@@ -254,7 +254,7 @@ This is a combo command controlling the state of both output red and blue at the
 
 This mode has timeout for lost IR.
 
-Usage: combopwm?p1=4&p2=10&ch=1
+Usage: `combopwm?p1=4&p2=10&ch=1`
 
 ### p1
 
@@ -310,7 +310,7 @@ This is a combo command controlling the state of both output red and blue at the
 
 This mode has timeout for lost IR.
 
-Usage: combopwmall?pwr0=4&pwb0=10&pwr1=3&pwb1=0&pwr2=5&pwb2=1&pwr3=3&pwb3=10
+Usage: `combopwmall?pwr0=4&pwb0=10&pwr1=3&pwb1=0&pwr2=5&pwb2=1&pwr3=3&pwb3=10`
 
 ### pwrX
 
@@ -364,7 +364,7 @@ This special function allow to control at the same time all 4 channels and all r
 
 As for the normal Combo Mode, this function has timeout on lost IR.
 
-Usage: comboall?rd0=1&bl0=0&rd1=2&bl1=4&rd2=3&bl2=8&rd3=0&bl3=12
+Usage: `comboall?rd0=1&bl0=0&rd1=2&bl1=4&rd2=3&bl2=8&rd3=0&bl3=12`
 
 ## rdX
 
@@ -392,7 +392,7 @@ this argument control the blue output. Accepted values are the following:
 
 As for the Single Continuous Mode, this mode is able to control: Clear/set/toggle of an individual pin C1 or C2 on output red or blue but on 4 channels in 1 time. This is something you cannot do with a regular remote control. Like for the normal function, there is no timeout for lost IR.
 
-Usage: continuousall?fc0=2&op0=0&fc1=1&op1=1&fc2=0&op2=2&fc3=3&op3=2
+Usage: `continuousall?fc0=2&op0=0&fc1=1&op1=1&fc2=0&op2=2&fc3=3&op3=2`
 
 ### fcX
 
@@ -422,7 +422,7 @@ As for the normal function, this mode is able to control: One output at a time w
 
 This mode has no timeout for lost IR on all commands except "full forward" and "full backward".
 
-Usage: singlepwmall?pw0=0&op0=0&pw1=6&op1=1&pw2=12&op2=1&pw3=2&op3=0
+Usage: `singlepwmall?pw0=0&op0=0&pw1=6&op1=1&pw2=12&op2=1&pw3=2&op3=0`
 
 ### pwX
 
@@ -445,3 +445,31 @@ this argument is used to select the right behavior on pins. The following values
 X from 0 to 3 representing channel 1 to 4.
 
 this argument select the output either red = 0 or blue = 1.
+
+## Signals
+
+You can control the signals to change individual signals.
+
+usage: `signal?si=2&md=0`
+
+### si
+
+This is the signal number from 0 to 16.
+
+### md
+
+This is the color of the led, 0 for red, 1 for green.
+
+## Switches
+
+You can control the switches to change.
+
+usage: `switch?si=2&md=0`
+
+### si
+
+This is the switch number from 0 to 16.
+
+### md
+
+This is how the switch is, 0 for straight, 1 for turned.

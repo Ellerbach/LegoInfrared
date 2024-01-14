@@ -5,23 +5,15 @@ using System.Device.Spi;
 
 namespace WebServerAndSerial.Models
 {
-    public class SignalManagement : IDisposable
+    public class SignalManagement : ISignalManagement, IDisposable
     {
         public const byte MaximunNumberSignals = 16;
         private bool[] _signalStatus;
         private SpiDevice _spi;
 
-        public byte NumberSignals { get; }
-
-        public SignalManagement(int spiBusNumber, int chipSelect, byte numberOfSignals)
+        public SignalManagement(int spiBusNumber, int chipSelect)
         {
-            NumberSignals = numberOfSignals;
-            if ((NumberSignals <= 0) && (NumberSignals > MaximunNumberSignals))
-            {
-                new ArgumentException("Not correct number of Signals");
-            }
-
-            _signalStatus = new bool[NumberSignals];
+            _signalStatus = new bool[MaximunNumberSignals];
             var settings = new SpiConnectionSettings(spiBusNumber, chipSelect)
             {
                 Mode = SpiMode.Mode2,
@@ -29,8 +21,8 @@ namespace WebServerAndSerial.Models
 
             _spi = SpiDevice.Create(settings);
 
-            //initialise all signals to "false"
-            for (byte i = 0; i < NumberSignals; i++)
+            // initialise all signals to "false"
+            for (byte i = 0; i < MaximunNumberSignals; i++)
             {
                 ChangeSignal(i, false);
             }
@@ -38,7 +30,7 @@ namespace WebServerAndSerial.Models
 
         public void ChangeSignal(byte NumSignal, bool value)
         {
-            if ((NumSignal <= 0) && (NumSignal > NumberSignals))
+            if ((NumSignal <= 0) && (NumSignal > MaximunNumberSignals))
             {
                 new ArgumentException("Not correct number of Signals");
             }
@@ -47,7 +39,7 @@ namespace WebServerAndSerial.Models
             _signalStatus[NumSignal] = value;
             // fill the buffer to be sent
             ushort mySign = 0;
-            for (ushort i = 0; i < NumberSignals; i++)
+            for (ushort i = 0; i < MaximunNumberSignals; i++)
             {
                 if (_signalStatus[i])
                 {
@@ -69,7 +61,7 @@ namespace WebServerAndSerial.Models
 
         public bool GetSignal(byte NumSignal)
         {
-            if ((NumSignal <= 0) && (NumSignal > NumberSignals))
+            if ((NumSignal <= 0) && (NumSignal > MaximunNumberSignals))
             {
                 new ArgumentException("Not correct number of Signals");
             }
