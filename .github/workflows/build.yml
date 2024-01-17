@@ -52,7 +52,7 @@ jobs:
       uses: nuget/setup-nuget@v1
 
     - name: Restore NuGet packages
-      run: nuget restore ./nanoFramework.Lego.Infrared/nanoFramework.Lego.Infrared.nfproj
+      run: nuget restore nanoFramework.Lego.Infrared\nanoFramework.Lego.Infrared.nfproj
 
     - name: Build
-      run: msbuild ./nanoFramework.Lego.Infrared/nanoFramework.Lego.Infrared.nfproj /verbosity:normal /p:Configuration=Release /nologo
+      run: msbuild nanoFramework.Lego.Infrared\nanoFramework.Lego.Infrared.nfproj /verbosity:normal /p:Configuration=Release /nologo
