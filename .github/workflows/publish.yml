@@ -48,11 +48,11 @@ jobs:
 
       # Restore, build and test the project
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore **/**.csproj
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build **/**.csproj --configuration Release --no-restore
     - name: Test
-      run: dotnet test --configuration Release --no-build --verbosity normal  
+      run: dotnet test **/**.csproj --configuration Release --no-build --verbosity normal  
 
     # Create a nuget Release      
     - name: Pack the NuGet package

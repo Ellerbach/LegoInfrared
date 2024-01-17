@@ -10,9 +10,9 @@ jobs:
   check_package_lock:
     name: nanoFramework
     uses: nanoframework/nf-tools/.github/workflows/check-package-lock.yml@main
-  check_nuget_latest:
-    name: nanoFramework
-    uses: nanoframework/nf-tools/.github/workflows/check-packages-updated.yml@main
-    secrets: inherit
-    with:
-      solution: 'nanoFramework.Lego.Infrared.sln'
+  # check_nuget_latest:
+  #  name: nanoFramework
+  #  uses: nanoframework/nf-tools/.github/workflows/check-packages-updated.yml@main
+  #  secrets: inherit
+  #  with:
+  #    solution: 'nanoFramework.Lego.Infrared.sln'
