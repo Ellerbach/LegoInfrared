@@ -5,10 +5,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-
-    runs-on: windows-latest
-
+  dotnetbuild:
+    runs-on: ubuntu-latest
     steps:
     # Checkout sources. Depth=0 is for using GitVersion
     - name: Checkout
@@ -38,7 +36,10 @@ jobs:
       run: dotnet build ./Lego.Infrared/Lego.Infrared.csproj --no-restore
     - name: Test
       run: dotnet test ./Lego.Infrared/Lego.Infrared.csproj --no-build --verbosity normal  
-      
+  
+  nanobuild:
+    runs-on: windows-latest
+    steps:
     # Install and Setup nanoFramework
     - uses: nanoframework/nanobuild@v1
 
