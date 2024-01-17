@@ -33,11 +33,11 @@ jobs:
 
       # Restore, build and test the project
     - name: Restore dependencies
-      run: dotnet restore **\**.csproj
+      run: dotnet restore ./Lego.Infrared/Lego.Infrared.csproj
     - name: Build
-      run: dotnet build **\**.csproj --no-restore
+      run: dotnet build ./Lego.Infrared/Lego.Infrared.csproj --no-restore
     - name: Test
-      run: dotnet test **\**.csproj --no-build --verbosity normal  
+      run: dotnet test ./Lego.Infrared/Lego.Infrared.csproj --no-build --verbosity normal  
       
     # Install and Setup nanoFramework
     - uses: nanoframework/nanobuild@v1
