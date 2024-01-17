@@ -93,7 +93,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    depends-on: nanobuild
+    needs: nanobuild
     steps:
     # Publish all NuGet packages to NuGet.org
     # Use --skip-duplicate to prevent errors if a package with the same version already exists.
