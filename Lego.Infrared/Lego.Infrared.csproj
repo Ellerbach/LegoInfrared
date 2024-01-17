@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReadmeFile>../README.md</PackageReadmeFile>
     <Authors>Laurent Ellerbach and contributors</Authors>
     <Copyright>Laurent Ellerbach</Copyright>
     <Product>Lego.Infrared</Product>
