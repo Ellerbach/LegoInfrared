@@ -62,6 +62,12 @@ jobs:
     runs-on: windows-latest
     depends-on: dotnetbuild
     steps:
+    # Checkout sources. Depth=0 is for using GitVersion
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    
     # Install and Setup nanoFramework
     - uses: nanoframework/nanobuild@v1
 

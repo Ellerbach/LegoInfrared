@@ -40,7 +40,14 @@ jobs:
   nanobuild:
     runs-on: windows-latest
     steps:
+    # Checkout sources. Depth=0 is for using GitVersion
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
     # Install and Setup nanoFramework
+    - name: Install nanoFramework
     - uses: nanoframework/nanobuild@v1
 
     - name: Add MSBuild to PATH
@@ -52,7 +59,9 @@ jobs:
       uses: nuget/setup-nuget@v1
 
     - name: Restore NuGet packages
-      run: nuget restore nanoFramework.Lego.Infrared\nanoFramework.Lego.Infrared.nfproj
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
     - name: Build
-      run: msbuild nanoFramework.Lego.Infrared\nanoFramework.Lego.Infrared.nfproj /verbosity:normal /p:Configuration=Release /nologo
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild ${{env.SOLUTION_FILE_PATH}} /verbosity:normal /p:Configuration=Release /nologo
