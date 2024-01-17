@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Lego.Infrared.nanoFramework</id>
+    <version>$version$</version>
+    <title>Lego.Infrared</title>
+    <authors>Laurent Ellerbach</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <releaseNotes>
+    </releaseNotes>
+    <readme>README.md</readme>
+    <developmentDependency>false</developmentDependency>
+    <projectUrl>https://github.com/Ellerbach/LegoInfrared</projectUrl>
+    <icon>images\logo.png</icon>
+    <repository type="git" url="https://github.com/Ellerbach/LegoInfrared" commit="$commit$" />
+    <copyright>Copyright (c) Laurent Ellerbach and Contributors</copyright>
+    <description>This package includes the nanoFramework Lego Infrared to control Power Functions RC assembly for .NET nanoFramework C# projects.</description>
+    <tags>nanoFramework C# csharp netmf netnf leog infrared ir power functions rc</tags>
+    <dependencies>
+      <dependency id="nanoFramework.CoreLibrary" version="1.15.5" />
+      <dependency id="nanoFramework.Runtime.Events" version="1.11.15" />
+      <dependency id="nanoFramework.System.Device.Gpio" version="1.1.38" />
+      <dependency id="nanoFramework.System.Threading" version="1.1.32" />
+      <dependency id="nanoFramework.System.Device.Spi" version="1.3.43" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="nanoFramework.Lego.Infrared\bin\Release\Lego.Infrared.nanoFramework.dll" target="lib\Lego.Infrared.nanoFramework.dll" />
+    <file src="nanoFramework.Lego.Infrared\bin\Release\Lego.Infrared.nanoFramework.pdb" target="lib\Lego.Infrared.nanoFramework.pdb" />
+    <file src="nanoFramework.Lego.Infrared\bin\Release\Lego.Infrared.nanoFramework.pdbx" target="lib\Lego.Infrared.nanoFramework.pdbx" />
+    <file src="nanoFramework.Lego.Infrared\bin\Release\Lego.Infrared.nanoFramework.pe" target="lib\Lego.Infrared.nanoFramework.pe" />
+    <file src="nanoFramework.Lego.Infrared\bin\Release\Lego.Infrared.nanoFramework.xml" target="lib\Lego.Infrared.nanoFramework.xml" />
+    <file src="README.md" target="docs\" />
+    <file src="LICENSE.md" target="" />
+  </files>
+</package>

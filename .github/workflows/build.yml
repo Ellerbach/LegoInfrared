@@ -1,0 +1,67 @@
+name: Build .NET and .NET nanoFramework
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  dotnetbuild:
+    runs-on: ubuntu-latest
+    steps:
+    # Checkout sources. Depth=0 is for using GitVersion
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.x
+
+      # Install and Setup GitVersion
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0
+      with:
+        versionSpec: '5.x'
+    - name: Use GitVersion
+      # Step id is used as reference for the output values
+      id: gitversion 
+      uses: gittools/actions/gitversion/execute@v0
+
+      # Restore, build and test the project
+    - name: Restore dependencies
+      run: dotnet restore ./Lego.Infrared/Lego.Infrared.csproj
+    - name: Build
+      run: dotnet build ./Lego.Infrared/Lego.Infrared.csproj --no-restore
+    - name: Test
+      run: dotnet test ./Lego.Infrared/Lego.Infrared.csproj --no-build --verbosity normal  
+  
+  nanobuild:
+    runs-on: windows-latest
+    steps:
+    # Checkout sources. Depth=0 is for using GitVersion
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    # Install and Setup nanoFramework
+    - name: Install nanoFramework
+    - uses: nanoframework/nanobuild@v1
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+      with:
+        msbuild-architecture: x64
+    
+    - name: Install NuGet
+      uses: nuget/setup-nuget@v1
+
+    - name: Restore NuGet packages
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild ${{env.SOLUTION_FILE_PATH}} /verbosity:normal /p:Configuration=Release /nologo
