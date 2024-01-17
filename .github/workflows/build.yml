@@ -48,7 +48,7 @@ jobs:
         
     # Install and Setup nanoFramework
     - name: Install nanoFramework
-    - uses: nanoframework/nanobuild@v1
+      uses: nanoframework/nanobuild@v1
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.1
