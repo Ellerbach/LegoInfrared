@@ -60,7 +60,7 @@ jobs:
 
   nanobuild:
     runs-on: windows-latest
-    depends-on: dotnetbuild
+    needs: dotnetbuild
     steps:
     # Checkout sources. Depth=0 is for using GitVersion
     - name: Checkout
