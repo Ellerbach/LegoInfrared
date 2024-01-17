@@ -53,8 +53,8 @@ jobs:
 
     - name: Restore NuGet packages
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+      run: nuget restore ./nanoFramework.Lego.Infrared/nanoFramework.Lego.Infrared.nfproj
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: msbuild ${{env.SOLUTION_FILE_PATH}} /verbosity:normal /p:Configuration=Release /nologo
+      run: msbuild ./nanoFramework.Lego.Infrared/nanoFramework.Lego.Infrared.nfproj /verbosity:normal /p:Configuration=Release /nologo
