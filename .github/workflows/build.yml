@@ -1,4 +1,4 @@
-name: Build .NET
+name: Build .NET and .NET nanoFramework
 
 on:
   pull_request:
@@ -7,12 +7,12 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     # Checkout sources. Depth=0 is for using GitVersion
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
@@ -38,3 +38,22 @@ jobs:
       run: dotnet build **/**.csproj --no-restore
     - name: Test
       run: dotnet test **/**.csproj --no-build --verbosity normal  
+      
+    # Install and Setup nanoFramework
+    - uses: nanoframework/nanobuild@v1
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+      with:
+        msbuild-architecture: x64
+    
+    - name: Install NuGet
+      uses: nuget/setup-nuget@v1
+
+    - name: Restore NuGet packages
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild ${{env.SOLUTION_FILE_PATH}} /verbosity:normal /p:Configuration=Release /nologo
