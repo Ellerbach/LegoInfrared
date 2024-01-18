@@ -86,12 +86,13 @@ jobs:
       run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
     - name: Build
+      id: build
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild ${{env.SOLUTION_FILE_PATH}} /verbosity:normal /p:Configuration=Release /nologo
 
     - name: Pack the NuGet package
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: nuget pack nanoFramework.Lego.Infrared.nuspec -PackagesDirectory ./artifacts -Version ${{ needs.dotnetbuild.outputs.git-version.MajorMinorPatch }} -Symbols -SymbolPackageFormat snupkg -properties commit="$(Build.SourceVersion)"
+      run: nuget pack nanoFramework.Lego.Infrared.nuspec -PackagesDirectory ./artifacts -Version ${{ needs.dotnetbuild.outputs.git-version.MajorMinorPatch }} -Symbols -SymbolPackageFormat snupkg -properties commit="${{ steps.build.outputs.SourceVersion }}" -Verbosity normal
 
   publish:
     runs-on: ubuntu-latest
