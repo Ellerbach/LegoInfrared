@@ -25,7 +25,6 @@ jobs:
     if: needs.before_publish.outputs.pr-labels == 'true'
     needs: before_publish
     outputs:
-      git-version: ${{ steps.gitversion.outputs }}
       majorverionpath: ${{ steps.gitversion.outputs.MajorMinorPatch }}
       versionsha: ${{ steps.gitversion.outputs.VersionSourceSha }}
       sha: ${{ steps.gitversion.outputs.Sha }}
