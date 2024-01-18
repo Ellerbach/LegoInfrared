@@ -92,7 +92,7 @@ jobs:
 
     - name: Pack the NuGet package
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: nuget pack nanoFramework.Lego.Infrared.nuspec -PackagesDirectory ./artifacts -Version ${{ needs.dotnetbuild.outputs.git-version.MajorMinorPatch }} -Symbols -SymbolPackageFormat snupkg -properties commit="${{ steps.build.outputs.SourceVersion }}" -Verbosity normal
+      run: nuget pack nanoFramework.Lego.Infrared.nuspec -PackagesDirectory ./artifacts -Version ${{ needs.dotnetbuild.outputs.git-version.MajorMinorPatch }} -Symbols -SymbolPackageFormat snupkg -properties commit="${{ github.sha }}" -Verbosity normal
 
   publish:
     runs-on: ubuntu-latest
