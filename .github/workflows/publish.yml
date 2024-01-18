@@ -25,7 +25,11 @@ jobs:
     if: needs.before_publish.outputs.pr-labels == 'true'
     needs: before_publish
     outputs:
-      git-version: ${{ steps.gitversion.outputs.results }}
+      git-version: ${{ steps.gitversion.outputs }}
+      majorverionpath: ${{ steps.gitversion.outputs.MajorMinorPatch }}
+      versionsha: ${{ steps.gitversion.outputs.VersionSourceSha }}
+      sha: ${{ steps.gitversion.outputs.Sha }}
+
     steps:
     # Checkout sources. Depth=0 is for using GitVersion
     - name: Checkout
@@ -74,9 +78,9 @@ jobs:
     # debug for version printing
     - name: debug
       run: |
-        echo ${{ needs.dotnetbuild.outputs.git-version.MajorMinorPatch }}
-        echo ${{ needs.dotnetbuild.outputs.git-version.VersionSourceSha }}
-        echo ${{ needs.dotnetbuild.outputs.git-version.outputs.Sha }}
+        echo ${{ needs.dotnetbuild.outputs.majorverionpath }}
+        echo ${{ needs.dotnetbuild.outputs.versionsha }}
+        echo ${{ needs.dotnetbuild.outputs.sha }}
 
     # Checkout sources. Depth=0 is for using GitVersion
     - name: Checkout
@@ -106,7 +110,7 @@ jobs:
 
     - name: Pack the NuGet package
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: nuget pack nanoFramework.Lego.Infrared.nuspec -PackagesDirectory ./artifacts -Version ${{ needs.dotnetbuild.outputs.git-version.MajorMinorPatch }} -Symbols -SymbolPackageFormat snupkg -properties commit="${{ github.sha }}" -Verbosity normal
+      run: nuget pack nanoFramework.Lego.Infrared.nuspec -PackagesDirectory ./artifacts -Version ${{ needs.dotnetbuild.outputs.majorverionpath }} -Symbols -SymbolPackageFormat snupkg -properties commit="${{ github.sha }}" -Verbosity normal
 
   publish:
     runs-on: ubuntu-latest
@@ -118,9 +122,9 @@ jobs:
     # Use --skip-duplicate to prevent errors if a package with the same version already exists.
     # If you retry a failed workflow, already published packages will be skipped without error.
     - name: Publish .NET separate tools to NuGet
-      run: dotnet nuget push ./artifacts/Lego.Infrared.${{ needs.dotnetbuild.outputs.git-version.MajorMinorPatch }}.nupkg --api-key "${{ secrets.NUGET_TOOLS }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push ./artifacts/Lego.Infrared.${{ needs.dotnetbuild.outputs.majorverionpath }}.nupkg --api-key "${{ secrets.NUGET_TOOLS }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
     - name: Publish .NET nanoFramework separate tools to NuGet
-      run: dotnet nuget push ./artifacts/Lego.Infrared.nanoFramework.${{ needs.dotnetbuild.outputs.git-version.MajorMinorPatch }}.nupkg --api-key "${{ secrets.NUGET_TOOLS }}" --source https://api.nuget.org/v3/index.json --skip-duplicate    
+      run: dotnet nuget push ./artifacts/Lego.Infrared.nanoFramework.${{ needs.dotnetbuild.outputs.majorverionpath }}.nupkg --api-key "${{ secrets.NUGET_TOOLS }}" --source https://api.nuget.org/v3/index.json --skip-duplicate    
 
     # Create the CHANGELOG for this release
     # We'll compile it from last the version
@@ -130,8 +134,8 @@ jobs:
       uses: mikepenz/release-changelog-builder-action@v1
       with:
         configuration: "./changelog-config.json"
-        fromTag: ${{ needs.dotnetbuild.outputs.git-version.VersionSourceSha }}
-        toTag: ${{ needs.dotnetbuild.outputs.git-version.Sha }}
+        fromTag: ${{ needs.dotnetbuild.outputs.majorverionpath }}
+        toTag: ${{ needs.dotnetbuild.outputs.sha }}
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -142,6 +146,6 @@ jobs:
       with:
         # no artifacts: ""
         body: ${{steps.github_release.outputs.changelog}}
-        tag: "v${{ needs.dotnetbuild.outputs.git-version.MajorMinorPatch }}"
+        tag: "v${{ needs.dotnetbuild.outputs.majorverionpath }}"
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: "**/artifacts/*.nupkg"
