@@ -25,7 +25,7 @@ jobs:
     if: needs.before_publish.outputs.pr-labels == 'true'
     needs: before_publish
     outputs:
-      git-version: ${{ steps.gitversion.outputs }}
+      git-version: ${{ steps.gitversion.outputs.result }}
     steps:
     # Checkout sources. Depth=0 is for using GitVersion
     - name: Checkout
