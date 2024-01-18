@@ -29,6 +29,7 @@ jobs:
       majorverionpath: ${{ steps.gitversion.outputs.MajorMinorPatch }}
       versionsha: ${{ steps.gitversion.outputs.VersionSourceSha }}
       sha: ${{ steps.gitversion.outputs.Sha }}
+
     steps:
     # Checkout sources. Depth=0 is for using GitVersion
     - name: Checkout
