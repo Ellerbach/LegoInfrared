@@ -33,5 +33,6 @@
     <file src="nanoFramework.Lego.Infrared\bin\Release\Lego.Infrared.nanoFramework.xml" target="lib\Lego.Infrared.nanoFramework.xml" />
     <file src="README.md" target="docs\" />
     <file src="LICENSE.md" target="" />
+    <file src="images\logo.png" target="images" />
   </files>
 </package>
