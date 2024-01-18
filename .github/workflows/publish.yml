@@ -60,10 +60,24 @@ jobs:
     - name: Pack the NuGet package
       run: dotnet pack ./Lego.Infrared --configuration Release --output ./artifacts
 
+    # debug for version printing
+    - name: debug
+      run: |
+        echo ${{ steps.gitversion.outputs.MajorMinorPatch }}
+        echo ${{ steps.gitversion.outputs.VersionSourceSha }}
+        echo ${{ steps.gitversion.outputs.Sha }}
+
   nanobuild:
     runs-on: windows-latest
     needs: dotnetbuild
     steps:
+    # debug for version printing
+    - name: debug
+      run: |
+        echo ${{ needs.dotnetbuild.outputs.git-version.MajorMinorPatch }}
+        echo ${{ needs.dotnetbuild.outputs.git-version.VersionSourceSha }}
+        echo ${{ needs.dotnetbuild.outputs.git-version.outputs.Sha }}
+
     # Checkout sources. Depth=0 is for using GitVersion
     - name: Checkout
       uses: actions/checkout@v3
