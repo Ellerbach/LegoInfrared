@@ -9,7 +9,7 @@
     <license type="file">LICENSE.md</license>
     <releaseNotes>
     </releaseNotes>
-    <readme>README.md</readme>
+    <readme>docs\README.md</readme>
     <developmentDependency>false</developmentDependency>
     <projectUrl>https://github.com/Ellerbach/LegoInfrared</projectUrl>
     <icon>images\logo.png</icon>
