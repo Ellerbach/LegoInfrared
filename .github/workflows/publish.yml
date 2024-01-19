@@ -61,7 +61,7 @@ jobs:
 
     # Create a nuget Release      
     - name: Pack the NuGet package
-      run: dotnet pack ./Lego.Infrared --configuration Release -Version ${{ steps.gitversion.outputs.MajorMinorPatch }} --output ./artifacts
+      run: dotnet pack ./Lego.Infrared --configuration Release --output ./artifacts
 
     # debug for version printing
     - name: debug
