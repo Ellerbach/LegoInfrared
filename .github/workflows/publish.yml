@@ -94,7 +94,7 @@ jobs:
 
     - name: Pack the NuGet package
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: nuget pack nanoFramework.Lego.Infrared.nuspec -OutputDirectory ./artifacts -Version ${{ steps.gitversion.outputs.MajorMinorPatch }} -Symbols -SymbolPackageFormat nupkg -properties commit="${{ github.sha }}" -Verbosity normal
+      run: nuget pack nanoFramework.Lego.Infrared.nuspec -OutputDirectory ./artifacts -Version ${{ steps.gitversion.outputs.MajorMinorPatch }} -Symbols -SymbolPackageFormat symbols.nupkg -properties commit="${{ github.sha }}" -Verbosity normal
 
     - name: debug
       run: |
