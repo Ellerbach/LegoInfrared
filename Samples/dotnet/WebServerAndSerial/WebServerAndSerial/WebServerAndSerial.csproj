@@ -17,11 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Lego.Infrared\Lego.Infrared.csproj" />
+    <Folder Include="config\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="config\" />
+    <ProjectReference Include="..\..\..\..\Lego.Infrared\LegoInfrared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
