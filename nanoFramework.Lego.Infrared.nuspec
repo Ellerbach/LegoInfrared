@@ -3,13 +3,13 @@
   <metadata>
     <id>Lego.Infrared.nanoFramework</id>
     <version>$version$</version>
-    <title>Lego.Infrared</title>
+    <title>Lego.Infrared.nanoFramework</title>
     <authors>Laurent Ellerbach</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="file">LICENSE.md</license>
     <releaseNotes>
     </releaseNotes>
-    <readme>docs\README.md</readme>
+    <readme>README.md</readme>
     <developmentDependency>false</developmentDependency>
     <projectUrl>https://github.com/Ellerbach/LegoInfrared</projectUrl>
     <icon>images\logo.png</icon>
@@ -31,7 +31,7 @@
     <file src="nanoFramework.Lego.Infrared\bin\Release\Lego.Infrared.nanoFramework.pdbx" target="lib\Lego.Infrared.nanoFramework.pdbx" />
     <file src="nanoFramework.Lego.Infrared\bin\Release\Lego.Infrared.nanoFramework.pe" target="lib\Lego.Infrared.nanoFramework.pe" />
     <file src="nanoFramework.Lego.Infrared\bin\Release\Lego.Infrared.nanoFramework.xml" target="lib\Lego.Infrared.nanoFramework.xml" />
-    <file src="README.md" target="docs\" />
+    <file src="README.md" target="" />
     <file src="LICENSE.md" target="" />
     <file src="images\logo.png" target="images" />
   </files>
