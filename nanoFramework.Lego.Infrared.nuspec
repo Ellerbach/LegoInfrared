@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>Lego.Infrared.nanoFramework</id>
+    <id>LegoInfrared.nanoFramework</id>
     <version>$version$</version>
-    <title>Lego.Infrared.nanoFramework</title>
+    <title>LegoInfrared.nanoFramework</title>
     <authors>Laurent Ellerbach</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="file">LICENSE.md</license>

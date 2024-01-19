@@ -8,7 +8,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Authors>Laurent Ellerbach and contributors</Authors>
     <Copyright>Laurent Ellerbach</Copyright>
-    <Product>Lego.Infrared</Product>
+    <Product>LegoInfrared</Product>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Ellerbach/LegoInfrared</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Ellerbach/LegoInfrared</PackageProjectUrl>
