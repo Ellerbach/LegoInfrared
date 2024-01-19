@@ -53,11 +53,11 @@ jobs:
 
       # Restore, build and test the project
     - name: Restore dependencies
-      run: dotnet restore ./Lego.Infrared/Lego.Infrared.csproj
+      run: dotnet restore ./Lego.Infrared/LegoInfrared.csproj
     - name: Build
-      run: dotnet build ./Lego.Infrared/Lego.Infrared.csproj --no-restore
+      run: dotnet build ./Lego.Infrared/LegoInfrared.csproj --no-restore
     - name: Test
-      run: dotnet test ./Lego.Infrared/Lego.Infrared.csproj --no-build --verbosity normal  
+      run: dotnet test ./Lego.Infrared/LegoInfrared.csproj --no-build --verbosity normal  
 
     # Create a nuget Release      
     - name: Pack the NuGet package
