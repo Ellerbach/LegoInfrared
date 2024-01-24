@@ -16,9 +16,9 @@
       },
       "nanoFramework.Iot.Device.DhcpServer": {
         "type": "Direct",
-        "requested": "[1.2.407, 1.2.407]",
-        "resolved": "1.2.407",
-        "contentHash": "lNLXLsUt23nj66XdV1R6xK0GIBm6JNzh623yIx45dPdxxHqnHjTj3EU8zq+XxT5iIsNSAc6J7OAbU7HydotNAw=="
+        "requested": "[1.2.443, 1.2.443]",
+        "resolved": "1.2.443",
+        "contentHash": "BUhGQS17qe8afZWR4Zn2PQQ0zuOCowMPi6Q9ifhUEzU/DomC57807KS+2aK7pv+lTuTglU4paBx9Zui5STerRA=="
       },
       "nanoFramework.Json": {
         "type": "Direct",
@@ -88,9 +88,9 @@
       },
       "nanoFramework.System.Net": {
         "type": "Direct",
-        "requested": "[1.10.64, 1.10.64]",
-        "resolved": "1.10.64",
-        "contentHash": "BM/+UzIrPqseGTRO1biYDU5zT5Mnt9Rb2IDa0milqbulAKJtZn0Sv+dwxSrT+FI27q8mgu78azhDF+fCqSmGhQ=="
+        "requested": "[1.10.68, 1.10.68]",
+        "resolved": "1.10.68",
+        "contentHash": "PoM4NadhtMBnuGiOPqi+TJZD8xicz0v72hG5gPGDvWXeKDCMYCMqiCqY+di2pRL3qGHkF+hh8kLOf+wBUJBWNQ=="
       },
       "nanoFramework.System.Net.Http.Server": {
         "type": "Direct",
