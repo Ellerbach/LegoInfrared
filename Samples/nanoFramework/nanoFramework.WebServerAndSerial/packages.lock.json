@@ -64,9 +64,9 @@
       },
       "nanoFramework.System.Device.Wifi": {
         "type": "Direct",
-        "requested": "[1.5.71, 1.5.71]",
-        "resolved": "1.5.71",
-        "contentHash": "9xOeWznAgLbnEoBLLKSJ3tDL4ZnxVBhUZDfNbMpoGXlb8zYLBMDNOtlWtSJmvpQb4SH7BNoqdEIBtLyXIKMCZw=="
+        "requested": "[1.5.74, 1.5.74]",
+        "resolved": "1.5.74",
+        "contentHash": "5ZjADo3qL17xH58QcOv0iPaBUD23wz6U7ILHz2ICg43vtNrf+WxTa7Etic2L3cpTDfSW/G1Z0dDuFsU1szLBKw=="
       },
       "nanoFramework.System.IO.FileSystem": {
         "type": "Direct",
@@ -88,15 +88,15 @@
       },
       "nanoFramework.System.Net": {
         "type": "Direct",
-        "requested": "[1.10.68, 1.10.68]",
-        "resolved": "1.10.68",
-        "contentHash": "PoM4NadhtMBnuGiOPqi+TJZD8xicz0v72hG5gPGDvWXeKDCMYCMqiCqY+di2pRL3qGHkF+hh8kLOf+wBUJBWNQ=="
+        "requested": "[1.10.70, 1.10.70]",
+        "resolved": "1.10.70",
+        "contentHash": "XP4XdmsCDrXcOJDSfo4zgqccTwPoygBH8y19pnVmrF/EYwbx4WzaMvRE5VnYKu2bp10T78su16+jxzeFZADqDw=="
       },
       "nanoFramework.System.Net.Http.Server": {
         "type": "Direct",
-        "requested": "[1.5.113, 1.5.113]",
-        "resolved": "1.5.113",
-        "contentHash": "gaCPn1h0VGWRA5gG6FoWlm8W9PgoBMekOsgOKKJEhl90TEMJSI8VM/4Xlgzg8KY6tEKvUkn9uXBoVHa0f2vGLg=="
+        "requested": "[1.5.118, 1.5.118]",
+        "resolved": "1.5.118",
+        "contentHash": "ufWlPDHTEvZEYsXqagHLC9K5v7o6o/lRYF+obNaWeLXlxbLR32TAPXgrSGcIkhjY6wksX77lcqu2wkAgStRdag=="
       },
       "nanoFramework.System.Runtime": {
         "type": "Direct",
@@ -118,9 +118,9 @@
       },
       "nanoFramework.WebServer.FileSystem": {
         "type": "Direct",
-        "requested": "[1.2.14, 1.2.14]",
-        "resolved": "1.2.14",
-        "contentHash": "GOEzQYvahpSDfTR0lFzFHNz4gbTjYPBXzdDEu1Z8koC50D6b/vlxrBf8ltzoNO5oYgWGn7BcMBeBIJrIehb6CQ=="
+        "requested": "[1.2.23, 1.2.23]",
+        "resolved": "1.2.23",
+        "contentHash": "qVZ7QZ9IuTv2moXthVugRgMZHLgt4sFsA2fKyyRqTqPlLDetcHTCSio2tRspq03eQrtwPwQtVqI+2Jh09RsFqQ=="
       }
     }
   }
