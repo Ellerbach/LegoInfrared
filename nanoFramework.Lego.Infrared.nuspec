@@ -34,5 +34,6 @@
     <file src="README.md" target="" />
     <file src="LICENSE.md" target="" />
     <file src="images\logo.png" target="images" />
+    <file src="Assets\*.jpg" target="Assets" />
   </files>
 </package>
