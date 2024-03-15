@@ -15,7 +15,7 @@
     <PackageProjectUrl>https://github.com/Ellerbach/LegoInfrared</PackageProjectUrl>
     <Description>Package allows to use Lego Infrared Power Functions RC on a linux device using SPI and a bit of electronic.</Description>
     <PackageTags>lego infrared power functions rc ir</PackageTags>
-    <icon>images\logo.png</icon>
+    <PackageIcon>images\logo.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,16 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="README.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Update="images\logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Pack>True</Pack>
-      <PackagePath>images\logo.png</PackagePath>
-    </None>
+    <None Include="README.md" Pack="true" Visible="false" PackagePath="\" />
+    <None Include="..\images\logo.png" Pack="true" Visible="false" PackagePath="images\logo.png" />
+    <None Include="..\Assets\*.jpg" Pack="true" Visible="false" PackagePath="Assets" />
   </ItemGroup>
 
   <Import Project="..\LegoInfraredCore\LegoInfraredCore.projitems" Label="Shared" />
