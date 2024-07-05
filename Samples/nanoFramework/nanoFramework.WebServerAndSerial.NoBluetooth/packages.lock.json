@@ -16,9 +16,9 @@
       },
       "nanoFramework.Iot.Device.DhcpServer": {
         "type": "Direct",
-        "requested": "[1.2.519, 1.2.519]",
-        "resolved": "1.2.519",
-        "contentHash": "f+haGvyDlHcXzjd3Nvn5vABqYgLmyyTxF4kSLv71v4fZFy9wfv+k6knrEaddqg+BDazARIbYQ49BAuGrxQKpVg=="
+        "requested": "[1.2.541, 1.2.541]",
+        "resolved": "1.2.541",
+        "contentHash": "xL6HTiqVwFKXIRq6ARHGyuTaN9mlA9DwsvEXfInz8vXXtzX+D60vnh4DGssv5TlDr2YPl6xkPVE0HXyaB296HA=="
       },
       "nanoFramework.Json": {
         "type": "Direct",
