@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Iot.Device.DhcpServer, Version=1.2.0.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.Iot.Device.DhcpServer.1.2.574\lib\Iot.Device.DhcpServer.dll</HintPath>
+      <HintPath>..\..\..\packages\nanoFramework.Iot.Device.DhcpServer.1.2.602\lib\Iot.Device.DhcpServer.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>..\..\..\packages\nanoFramework.CoreLibrary.1.15.5\lib\mscorlib.dll</HintPath>
