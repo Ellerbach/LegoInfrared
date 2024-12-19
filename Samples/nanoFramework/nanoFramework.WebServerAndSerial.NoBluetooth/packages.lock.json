@@ -10,15 +10,15 @@
       },
       "nanoFramework.Hardware.Esp32": {
         "type": "Direct",
-        "requested": "[1.6.19, 1.6.19]",
-        "resolved": "1.6.19",
-        "contentHash": "dvLEvudRQ/89GtX8i/flOwb81vCMVvI3PpQ+B07b/TUz4tAvpwA7iw6ye5224Z/8j3CQBhefiZtU/jv6K7HRyw=="
+        "requested": "[1.6.23, 1.6.23]",
+        "resolved": "1.6.23",
+        "contentHash": "rgNByDk4jttssYlXAhDpgt0IWYoUNbyDSQjy7xV7tG+z8dTt7IjA5ehe42028Umwoe6ksHm8mRDfFsITotbNiA=="
       },
       "nanoFramework.Iot.Device.DhcpServer": {
         "type": "Direct",
-        "requested": "[1.2.644, 1.2.644]",
-        "resolved": "1.2.644",
-        "contentHash": "DoWB1J+V3nBmaG/++yjG1hkq4jAgmKTyej1Q9QS+3A9h5r2TzzJ56bH5x8FU9uqJWKtSteoZevSbYmu/OeuZKw=="
+        "requested": "[1.2.667, 1.2.667]",
+        "resolved": "1.2.667",
+        "contentHash": "2CKAIrtONje6zc/uiB4Z8sG08eCLd7Vhvp0hIyu+Yh1q5NLuLAD7ZXdGIMgwmz3LZT+NFRHJVG+neo/AYcj4Ig=="
       },
       "nanoFramework.Json": {
         "type": "Direct",
@@ -70,9 +70,9 @@
       },
       "nanoFramework.System.IO.FileSystem": {
         "type": "Direct",
-        "requested": "[1.1.54, 1.1.54]",
-        "resolved": "1.1.54",
-        "contentHash": "K1QPNbrksqw4yjQ/GXgz1Q0hZBi3zi1A8/FUAhYsq8bESVNUFjNpvxHPSDw1gV8DzEg5jH5e9Z2VrAncTQogFQ=="
+        "requested": "[1.1.66, 1.1.66]",
+        "resolved": "1.1.66",
+        "contentHash": "bQIWR23R3UHTO7+icxqIvb07qHs1uI7kj+kjYNf+NTfUHunerfZ4v79+pcSudCR1p5bJHD8GVeV2Hyxl4SZAFw=="
       },
       "nanoFramework.System.IO.Ports": {
         "type": "Direct",
@@ -118,9 +118,9 @@
       },
       "nanoFramework.WebServer.FileSystem": {
         "type": "Direct",
-        "requested": "[1.2.63, 1.2.63]",
-        "resolved": "1.2.63",
-        "contentHash": "sEetfnRxEvYLEo6nsVt6H99RBAsPeO2jzcfY1YtqMCBc0jb54FEQaiZxR4IMok+2OxJ2Ecs9pyry6NRys/q1Xg=="
+        "requested": "[1.2.70, 1.2.70]",
+        "resolved": "1.2.70",
+        "contentHash": "4ZDc/rpOEx0r0aoYrqATysNUlM+7fTIUxZMw0LllkWH/mVe/3Vr1jdiHOhjQHGI3RCl6o+2AadEBenkvNGiIDQ=="
       }
     }
   }
