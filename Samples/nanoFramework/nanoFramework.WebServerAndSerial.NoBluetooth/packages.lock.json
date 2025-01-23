@@ -16,15 +16,15 @@
       },
       "nanoFramework.Iot.Device.DhcpServer": {
         "type": "Direct",
-        "requested": "[1.2.700, 1.2.700]",
-        "resolved": "1.2.700",
-        "contentHash": "yrPaHkH8Cx0eYEu5pXK9GEW4BCOiBhxM47gojsHOWpYLu7a687jTp3oVo+P+wsLkI8hViVUiZbjLEK6e98IXHQ=="
+        "requested": "[1.2.708, 1.2.708]",
+        "resolved": "1.2.708",
+        "contentHash": "9cs/OzSJoiFKX+brwt6uYjI1C0gktHI1GZiXS62yPSBkl4PdDRtTCI6HwVh88LcVah4s8VCJLKC9a/4NBpkjig=="
       },
       "nanoFramework.Json": {
         "type": "Direct",
-        "requested": "[2.2.154, 2.2.154]",
-        "resolved": "2.2.154",
-        "contentHash": "JfPMDuZ9HOSzPgFJzMfAqW4s0r11+SDXBxfUReqCmqWKZv/m6lAdMAOrtoAI46tJeNnaYOT5sP/K1DCLC4PgJg=="
+        "requested": "[2.2.160, 2.2.160]",
+        "resolved": "2.2.160",
+        "contentHash": "+mXg7/6eqhtWrGnU/+Q4Z+1HHaO3lnidRpc9V9N83mnXfdl4xSiqP4IgjtkmkPamxQJ+0BbcppkeAX11/hfn9Q=="
       },
       "nanoFramework.ResourceManager": {
         "type": "Direct",
