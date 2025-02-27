@@ -52,64 +52,64 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Iot.Device.DhcpServer, Version=1.2.0.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.Iot.Device.DhcpServer.1.2.761\lib\Iot.Device.DhcpServer.dll</HintPath>
+      <HintPath>..\..\..\packages\nanoFramework.Iot.Device.DhcpServer.1.2.793\lib\Iot.Device.DhcpServer.dll</HintPath>
     </Reference>
-    <Reference Include="mscorlib, Version=1.16.11.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.CoreLibrary.1.16.11\lib\mscorlib.dll</HintPath>
+    <Reference Include="mscorlib, Version=1.17.1.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+      <HintPath>..\..\..\packages\nanoFramework.CoreLibrary.1.17.1\lib\mscorlib.dll</HintPath>
     </Reference>
-    <Reference Include="nanoFramework.Hardware.Esp32, Version=1.6.29.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.Hardware.Esp32.1.6.29\lib\nanoFramework.Hardware.Esp32.dll</HintPath>
+    <Reference Include="nanoFramework.Hardware.Esp32, Version=1.6.31.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+      <HintPath>..\..\..\packages\nanoFramework.Hardware.Esp32.1.6.31\lib\nanoFramework.Hardware.Esp32.dll</HintPath>
     </Reference>
-    <Reference Include="nanoFramework.Json, Version=2.2.176.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.Json.2.2.176\lib\nanoFramework.Json.dll</HintPath>
+    <Reference Include="nanoFramework.Json, Version=2.2.183.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+      <HintPath>..\..\..\packages\nanoFramework.Json.2.2.183\lib\nanoFramework.Json.dll</HintPath>
     </Reference>
-    <Reference Include="nanoFramework.ResourceManager, Version=1.2.29.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.ResourceManager.1.2.29\lib\nanoFramework.ResourceManager.dll</HintPath>
+    <Reference Include="nanoFramework.ResourceManager, Version=1.2.30.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+      <HintPath>..\..\..\packages\nanoFramework.ResourceManager.1.2.30\lib\nanoFramework.ResourceManager.dll</HintPath>
     </Reference>
-    <Reference Include="nanoFramework.Runtime.Events, Version=1.11.29.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.Runtime.Events.1.11.29\lib\nanoFramework.Runtime.Events.dll</HintPath>
+    <Reference Include="nanoFramework.Runtime.Events, Version=1.11.30.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+      <HintPath>..\..\..\packages\nanoFramework.Runtime.Events.1.11.30\lib\nanoFramework.Runtime.Events.dll</HintPath>
     </Reference>
-    <Reference Include="nanoFramework.Runtime.Native, Version=1.7.8.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.Runtime.Native.1.7.8\lib\nanoFramework.Runtime.Native.dll</HintPath>
+    <Reference Include="nanoFramework.Runtime.Native, Version=1.7.9.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+      <HintPath>..\..\..\packages\nanoFramework.Runtime.Native.1.7.9\lib\nanoFramework.Runtime.Native.dll</HintPath>
     </Reference>
-    <Reference Include="nanoFramework.System.Collections, Version=1.5.59.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.System.Collections.1.5.59\lib\nanoFramework.System.Collections.dll</HintPath>
+    <Reference Include="nanoFramework.System.Collections, Version=1.5.62.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+      <HintPath>..\..\..\packages\nanoFramework.System.Collections.1.5.62\lib\nanoFramework.System.Collections.dll</HintPath>
     </Reference>
     <Reference Include="nanoFramework.System.Runtime, Version=1.0.28.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
       <HintPath>..\..\..\packages\nanoFramework.System.Runtime.1.0.28\lib\nanoFramework.System.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="nanoFramework.System.Text, Version=1.3.16.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.System.Text.1.3.16\lib\nanoFramework.System.Text.dll</HintPath>
+    <Reference Include="nanoFramework.System.Text, Version=1.3.29.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+      <HintPath>..\..\..\packages\nanoFramework.System.Text.1.3.29\lib\nanoFramework.System.Text.dll</HintPath>
     </Reference>
     <Reference Include="nanoFramework.WebServer, Version=1.2.0.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.WebServer.FileSystem.1.2.93\lib\nanoFramework.WebServer.dll</HintPath>
+      <HintPath>..\..\..\packages\nanoFramework.WebServer.FileSystem.1.2.101\lib\nanoFramework.WebServer.dll</HintPath>
     </Reference>
-    <Reference Include="System.Device.Gpio, Version=1.1.53.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.System.Device.Gpio.1.1.53\lib\System.Device.Gpio.dll</HintPath>
+    <Reference Include="System.Device.Gpio, Version=1.1.55.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+      <HintPath>..\..\..\packages\nanoFramework.System.Device.Gpio.1.1.55\lib\System.Device.Gpio.dll</HintPath>
     </Reference>
-    <Reference Include="System.Device.Spi, Version=1.3.73.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.System.Device.Spi.1.3.73\lib\System.Device.Spi.dll</HintPath>
+    <Reference Include="System.Device.Spi, Version=1.3.77.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+      <HintPath>..\..\..\packages\nanoFramework.System.Device.Spi.1.3.77\lib\System.Device.Spi.dll</HintPath>
     </Reference>
     <Reference Include="System.Device.Wifi, Version=1.5.115.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
       <HintPath>..\..\..\packages\nanoFramework.System.Device.Wifi.1.5.115\lib\System.Device.Wifi.dll</HintPath>
     </Reference>
-    <Reference Include="System.IO.FileSystem, Version=1.1.78.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.System.IO.FileSystem.1.1.78\lib\System.IO.FileSystem.dll</HintPath>
+    <Reference Include="System.IO.FileSystem, Version=1.1.80.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+      <HintPath>..\..\..\packages\nanoFramework.System.IO.FileSystem.1.1.80\lib\System.IO.FileSystem.dll</HintPath>
     </Reference>
-    <Reference Include="System.IO.Ports, Version=1.1.119.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.System.IO.Ports.1.1.119\lib\System.IO.Ports.dll</HintPath>
+    <Reference Include="System.IO.Ports, Version=1.1.123.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+      <HintPath>..\..\..\packages\nanoFramework.System.IO.Ports.1.1.123\lib\System.IO.Ports.dll</HintPath>
     </Reference>
-    <Reference Include="System.IO.Streams, Version=1.1.86.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.System.IO.Streams.1.1.86\lib\System.IO.Streams.dll</HintPath>
+    <Reference Include="System.IO.Streams, Version=1.1.88.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+      <HintPath>..\..\..\packages\nanoFramework.System.IO.Streams.1.1.88\lib\System.IO.Streams.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net, Version=1.11.27.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.System.Net.1.11.27\lib\System.Net.dll</HintPath>
+    <Reference Include="System.Net, Version=1.11.31.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+      <HintPath>..\..\..\packages\nanoFramework.System.Net.1.11.31\lib\System.Net.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http, Version=1.5.175.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.System.Net.Http.Server.1.5.175\lib\System.Net.Http.dll</HintPath>
+    <Reference Include="System.Net.Http, Version=1.5.181.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+      <HintPath>..\..\..\packages\nanoFramework.System.Net.Http.Server.1.5.181\lib\System.Net.Http.dll</HintPath>
     </Reference>
-    <Reference Include="System.Threading, Version=1.1.46.1709, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\..\..\packages\nanoFramework.System.Threading.1.1.46\lib\System.Threading.dll</HintPath>
+    <Reference Include="System.Threading, Version=1.1.49.41415, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+      <HintPath>..\..\..\packages\nanoFramework.System.Threading.1.1.49\lib\System.Threading.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
