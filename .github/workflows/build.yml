@@ -70,7 +70,7 @@ jobs:
         "MSBUILD_EXE=$msbuild" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
     - name: Install NuGet
-      uses: nuget/setup-nuget@v1
+      uses: nuget/setup-nuget@v4
 
     - name: Restore NuGet packages
       shell: pwsh
