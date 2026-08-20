@@ -17,8 +17,8 @@
       "ignore"
     ],
     "sort": "ASC",
-    "template": "${{CHANGELOG}}\n",
-    "pr_template": "- ${{TITLE}} (PR: #${{NUMBER}})",
+    "template": "#{{CHANGELOG}}\n",
+    "pr_template": "- #{{TITLE}} (PR: #{{NUMBER}})",
     "empty_template": "- no changes",
     "label_extractor": [ ],
     "duplicate_filter": {
