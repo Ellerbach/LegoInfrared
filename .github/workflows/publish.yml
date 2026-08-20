@@ -46,13 +46,24 @@ jobs:
 
       # Install and Setup GitVersion
     - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@v0
+      uses: gittools/actions/gitversion/setup@v3
       with:
-        versionSpec: '5.x'
+        versionSpec: '6.x'
     - name: Use GitVersion
       # Step id is used as reference for the output values
       id: gitversion 
-      uses: gittools/actions/gitversion/execute@v0
+      uses: gittools/actions/gitversion/execute@v3
+
+    - name: Set package version
+      id: package-version
+      shell: pwsh
+      run: |
+        $version = '${{ steps.gitversion.outputs.MajorMinorPatch }}'
+        if ($version -notmatch '^\d+\.\d+\.\d+$') {
+          throw "GitVersion produced an invalid release version: '$version'"
+        }
+        "PACKAGE_VERSION=$version" >> $env:GITHUB_ENV
+        "version=$version" >> $env:GITHUB_OUTPUT
 
       # Restore, build and test the project
     - name: Restore dependencies
@@ -64,7 +75,7 @@ jobs:
 
     # Create a nuget Release      
     - name: Pack the NuGet package
-      run: dotnet pack ./Lego.Infrared --configuration Release --output ./artifacts
+      run: dotnet pack ./Lego.Infrared --configuration Release --output ./artifacts -p:PackageVersion=$env:PACKAGE_VERSION -p:UpdateVersionProperties=false
 
     # debug for version printing
     - name: debug
@@ -101,7 +112,43 @@ jobs:
 
     - name: Pack the NuGet package
       working-directory: ${{ github.workspace }}
-      run: nuget pack nanoFramework.Lego.Infrared.nuspec -OutputDirectory ./artifacts -Version ${{ steps.gitversion.outputs.MajorMinorPatch }} -Symbols -SymbolPackageFormat symbols.nupkg -properties commit="${{ github.sha }}" -Verbosity normal
+      run: nuget pack nanoFramework.Lego.Infrared.nuspec -OutputDirectory ./artifacts -Version $env:PACKAGE_VERSION -Symbols -SymbolPackageFormat symbols.nupkg -properties commit="${{ github.sha }}" -Verbosity normal
+
+    - name: Verify package versions
+      shell: pwsh
+      run: |
+        Add-Type -AssemblyName System.IO.Compression.FileSystem
+
+        $packagePaths = @(
+          "./artifacts/LegoInfrared.$env:PACKAGE_VERSION.nupkg",
+          "./artifacts/LegoInfrared.nanoFramework.$env:PACKAGE_VERSION.nupkg"
+        )
+
+        foreach ($packagePath in $packagePaths) {
+          $archive = [System.IO.Compression.ZipFile]::OpenRead((Resolve-Path $packagePath))
+          try {
+            $entry = $archive.Entries | Where-Object FullName -Like '*.nuspec' | Select-Object -First 1
+            if ($null -eq $entry) {
+              throw "No .nuspec found in '$packagePath'"
+            }
+
+            $reader = [System.IO.StreamReader]::new($entry.Open())
+            try {
+              [xml]$nuspec = $reader.ReadToEnd()
+            }
+            finally {
+              $reader.Dispose()
+            }
+
+            $actualVersion = $nuspec.package.metadata.version
+            if ($actualVersion -ne $env:PACKAGE_VERSION) {
+              throw "Package '$packagePath' contains version '$actualVersion'; expected '$env:PACKAGE_VERSION'"
+            }
+          }
+          finally {
+            $archive.Dispose()
+          }
+        }
 
     - name: debug
       run: |
@@ -111,9 +158,9 @@ jobs:
     # Use --skip-duplicate to prevent errors if a package with the same version already exists.
     # If you retry a failed workflow, already published packages will be skipped without error.
     - name: Publish .NET separate tools to NuGet
-      run: dotnet nuget push ./artifacts/LegoInfrared.${{ steps.gitversion.outputs.MajorMinorPatch }}.nupkg --api-key ${{ secrets.NUGET_TOOLS }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push ./artifacts/LegoInfrared.$env:PACKAGE_VERSION.nupkg --api-key ${{ secrets.NUGET_TOOLS }} --source https://api.nuget.org/v3/index.json --skip-duplicate
     - name: Publish .NET nanoFramework separate tools to NuGet
-      run: dotnet nuget push ./artifacts/LegoInfrared.nanoFramework.${{ steps.gitversion.outputs.MajorMinorPatch }}.nupkg --api-key ${{ secrets.NUGET_TOOLS }} --source https://api.nuget.org/v3/index.json --skip-duplicate    
+      run: dotnet nuget push ./artifacts/LegoInfrared.nanoFramework.$env:PACKAGE_VERSION.nupkg --api-key ${{ secrets.NUGET_TOOLS }} --source https://api.nuget.org/v3/index.json --skip-duplicate
 
     # Create the CHANGELOG for this release
     # We'll compile it from last the version
@@ -123,7 +170,7 @@ jobs:
       uses: mikepenz/release-changelog-builder-action@v1
       with:
         configuration: "./changelog-config.json"
-        fromTag: ${{ steps.gitversion.outputs.MajorMinorPatch }}
+        fromTag: ${{ steps.package-version.outputs.version }}
         toTag: ${{ steps.gitversion.outputs.Sha }}
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -135,6 +182,6 @@ jobs:
       with:
         # no artifacts: ""
         body: ${{steps.github_release.outputs.changelog}}
-        tag: "v${{ steps.gitversion.outputs.MajorMinorPatch }}"
+        tag: "v${{ steps.package-version.outputs.version }}"
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: "**/artifacts/*.nupkg"
