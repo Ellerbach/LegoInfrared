@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  SOLUTION_FILE_PATH: nanoFramework.Lego.Infrared.sln
+
 jobs:
   dotnetbuild:
     runs-on: ubuntu-latest
@@ -15,9 +18,9 @@ jobs:
         fetch-depth: 0
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 6.x
+        dotnet-version: 10.x
 
       # Install and Setup GitVersion
     - name: Install GitVersion
@@ -51,7 +54,7 @@ jobs:
       uses: nanoframework/nanobuild@v1
 
     - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.1
+      uses: microsoft/setup-msbuild@v1
       with:
         msbuild-architecture: x64
     
@@ -59,9 +62,13 @@ jobs:
       uses: nuget/setup-nuget@v1
 
     - name: Restore NuGet packages
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+      shell: pwsh
+      run: |
+        $solution = Join-Path $env:GITHUB_WORKSPACE $env:SOLUTION_FILE_PATH
+        nuget restore $solution
 
     - name: Build
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: msbuild ${{env.SOLUTION_FILE_PATH}} /verbosity:normal /p:Configuration=Release /nologo
+      shell: pwsh
+      run: |
+        $solution = Join-Path $env:GITHUB_WORKSPACE $env:SOLUTION_FILE_PATH
+        msbuild $solution /verbosity:normal /p:Configuration=Release /nologo

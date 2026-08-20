@@ -4,6 +4,9 @@ on:
   push:
     branches: [ "main" ]
 
+env:
+  SOLUTION_FILE_PATH: nanoFramework.Lego.Infrared.sln
+
 jobs:
 
   before_publish:
@@ -32,14 +35,14 @@ jobs:
     steps:
     # Checkout sources. Depth=0 is for using GitVersion
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 6.x
+        dotnet-version: 10.x
 
       # Install and Setup GitVersion
     - name: Install GitVersion
@@ -76,7 +79,7 @@ jobs:
 
     # Install and Setup MSBuild
     - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.1
+      uses: microsoft/setup-msbuild@v1
       with:
         msbuild-architecture: x64
     
@@ -84,16 +87,20 @@ jobs:
       uses: nuget/setup-nuget@v1
 
     - name: Restore NuGet packages
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+      shell: pwsh
+      run: |
+        $solution = Join-Path $env:GITHUB_WORKSPACE $env:SOLUTION_FILE_PATH
+        nuget restore $solution
 
     - name: Build
       id: build
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: msbuild ${{env.SOLUTION_FILE_PATH}} /verbosity:normal /p:Configuration=Release /nologo
+      shell: pwsh
+      run: |
+        $solution = Join-Path $env:GITHUB_WORKSPACE $env:SOLUTION_FILE_PATH
+        msbuild $solution /verbosity:normal /p:Configuration=Release /nologo
 
     - name: Pack the NuGet package
-      working-directory: ${{env.GITHUB_WORKSPACE}}
+      working-directory: ${{ github.workspace }}
       run: nuget pack nanoFramework.Lego.Infrared.nuspec -OutputDirectory ./artifacts -Version ${{ steps.gitversion.outputs.MajorMinorPatch }} -Symbols -SymbolPackageFormat symbols.nupkg -properties commit="${{ github.sha }}" -Verbosity normal
 
     - name: debug
