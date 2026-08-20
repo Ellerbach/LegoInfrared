@@ -7,6 +7,10 @@ on:
 env:
   SOLUTION_FILE_PATH: nanoFramework.Lego.Infrared.sln
 
+permissions:
+  contents: write
+  id-token: write
+
 jobs:
 
   before_publish:
@@ -161,14 +165,20 @@ jobs:
     - name: debug
       run: |
         ls ./artifacts
+
+    - name: NuGet login (OIDC → temp API key)
+      id: login
+      uses: NuGet/login@v1
+      with:
+        user: ${{ secrets.NUGET_USER }}
         
     # Publish all NuGet packages to NuGet.org
     # Use --skip-duplicate to prevent errors if a package with the same version already exists.
     # If you retry a failed workflow, already published packages will be skipped without error.
     - name: Publish .NET separate tools to NuGet
-      run: dotnet nuget push ./artifacts/LegoInfrared.$env:PACKAGE_VERSION.nupkg --api-key ${{ secrets.NUGET_TOOLS }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push ./artifacts/LegoInfrared.${{ steps.gitversion.outputs.MajorMinorPatch }}.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
     - name: Publish .NET nanoFramework separate tools to NuGet
-      run: dotnet nuget push ./artifacts/LegoInfrared.nanoFramework.$env:PACKAGE_VERSION.nupkg --api-key ${{ secrets.NUGET_TOOLS }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push ./artifacts/LegoInfrared.nanoFramework.${{ steps.gitversion.outputs.MajorMinorPatch }}.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate    
 
     # Create the CHANGELOG for this release
     # We'll compile it from last the version
