@@ -2,12 +2,6 @@
   "version": 1,
   "dependencies": {
     ".NETnanoFramework,Version=v1.0": {
-      "GitVersion.MsBuild": {
-        "type": "Direct",
-        "requested": "[6.8.2, 6.8.2]",
-        "resolved": "6.8.2",
-        "contentHash": "eTd8jUiogUXpVssFyDWWdMrPr5Cdc57tWaQ3Cv/eMIhnumOHZhDkc/wcy8hYU8aH7NS4VT2w/pHjVITDSTXMGw=="
-      },
       "nanoFramework.CoreLibrary": {
         "type": "Direct",
         "requested": "[1.17.11, 1.17.11]",
